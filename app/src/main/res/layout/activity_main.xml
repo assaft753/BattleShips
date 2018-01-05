@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/test"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.moshesteinvortzel.assaftayouri.battleships.MainActivity">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/headline" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="20dp"
+        android:paddingLeft="5dp"
+        android:text="@string/Choose"
+        android:textColor="@color/Danger"
+        android:textSize="30dp" />
+
+
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="15dp">
+
+        <RadioButton
+            android:id="@+id/easy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/Danger"
+            android:layoutDirection="rtl"
+            android:onClick="onButtonRadioClick"
+            android:paddingLeft="5dp"
+            android:text="@string/Easy"
+            android:textSize="30dp" />
+
+        <RadioButton
+            android:id="@+id/medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/Danger"
+            android:layoutDirection="rtl"
+            android:onClick="onButtonRadioClick"
+            android:paddingLeft="5dp"
+            android:text="@string/Medium"
+            android:textSize="30dp" />
+
+        <RadioButton
+            android:id="@+id/hard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/Danger"
+            android:layoutDirection="rtl"
+            android:onClick="onButtonRadioClick"
+            android:paddingLeft="5dp"
+            android:text="@string/Hard"
+            android:textSize="30dp" />
+    </RadioGroup>
+
+    <ImageView
+        android:id="@+id/diffImage"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/hard" />
+
+    <Button
+        android:id="@+id/okButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="25dp"
+        android:background="@color/Danger"
+        android:text="@string/Play"
+        android:textColor="#FFFF"
+        android:textSize="25dp" />
+
+</LinearLayout>

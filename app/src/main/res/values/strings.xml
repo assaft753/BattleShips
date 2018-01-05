@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">BattleShips</string>
+    <string name="Easy">Baby</string>
+    <string name="Medium">Bring \'em on</string>
+    <string name="Hard">Nightmare</string>
+    <string name="Choose">Choose Difficulty:</string>
+    <string name="Play">FIGHT!</string>
+    <string name="Won">YOU WON</string>
+    <string name="Loose">YOU LOOSE</string>
+    <string name="Again">Play Again</string>
+    <string name="Restart">Change Difficulty</string>
+    <string name="Difficulty">difficulty</string>
+    <string name="playerTurn">Your Turn</string>
+    <string name="computerTurn">Computer Turn</string>
+    <string name="keyDifficulty">difficulty</string>
+    <string name="keyState">state</string>
+</resources>

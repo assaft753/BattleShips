@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relative"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/sea"
+    tools:context="com.moshesteinvortzel.assaftayouri.battleships.GameActivity">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/rectangle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/rectangle">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/playerGrid"
+            android:layout_alignParentTop="false"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/statingTurn"
+            android:visibility="invisible" />
+
+
+        <TextView
+            android:id="@+id/statingTurn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/playerGrid"
+            android:layout_alignParentLeft="true"
+            android:padding="3dp"
+            android:textColor="@android:color/holo_orange_light"
+            android:textSize="25dp" />
+
+        <GridView
+            android:id="@+id/computerGrid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="false"
+            android:layout_centerVertical="true"
+            android:horizontalSpacing="3dp"
+            android:layoutDirection="ltr"
+            android:numColumns="9"
+            android:padding="4dp"
+            android:verticalSpacing="3dp" />
+
+        <GridView
+            android:id="@+id/playerGrid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="false"
+            android:layout_margin="10dp"
+            android:clipToPadding="false"
+            android:drawSelectorOnTop="false"
+            android:horizontalSpacing="0.5dp"
+            android:layoutDirection="ltr"
+            android:numColumns="9"
+            android:paddingHorizontal="50dp"
+            android:stackFromBottom="true"
+            android:verticalSpacing="0.5dp">
+        </GridView>
+    </RelativeLayout>
+</RelativeLayout>
