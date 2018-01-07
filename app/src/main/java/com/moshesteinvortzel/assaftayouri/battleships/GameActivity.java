@@ -123,7 +123,7 @@ public class GameActivity extends AppCompatActivity
             }
         });
 
-        /*new Thread(new Runnable()
+        new Thread(new Runnable()
         {
             @Override
             public void run()
@@ -154,7 +154,7 @@ public class GameActivity extends AppCompatActivity
                 }
 
             }
-        }).start();*/
+        }).start();
 
 
     }
