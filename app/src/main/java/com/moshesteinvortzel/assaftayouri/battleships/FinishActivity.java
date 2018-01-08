@@ -19,18 +19,15 @@ import com.moshesteinvortzel.assaftayouri.battleships.Services.RecordService;
 
 public class FinishActivity extends AppCompatActivity {
 
-
     private RecordService.RecordApi recordApi;
     private boolean isBind=false;
-    RecordHandler recordHandler;
-    LocationManager locationManager;
     private ServiceConnection recordServiceConnection=new ServiceConnection()
     {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder)
         {
+            System.out.println("Is Bind");
             recordApi=(RecordService.RecordApi)iBinder;
-            recordApi.Init(locationManager,recordHandler);
             isBind=true;
 
         }
@@ -38,6 +35,7 @@ public class FinishActivity extends AppCompatActivity {
         @Override
         public void onServiceDisconnected(ComponentName componentName)
         {
+            System.out.println("unbind");
             isBind=false;
             recordApi=null;
         }
@@ -47,8 +45,6 @@ public class FinishActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        recordHandler=new RecordHandler(getApplicationContext());
-        locationManager=(LocationManager) getSystemService(Context.LOCATION_SERVICE);
         setContentView(R.layout.activity_finish);
         Bundle bundle = getIntent().getExtras();
         String state = bundle.getString(getString(R.string.keyState));
@@ -57,17 +53,21 @@ public class FinishActivity extends AppCompatActivity {
         Button changeDifficulty = (Button) findViewById(R.id.restartBtn);
         Button reFight = (Button) findViewById(R.id.againBtn);
 
-        changeDifficulty.setOnClickListener(new Button.OnClickListener() {
+        changeDifficulty.setOnClickListener(new Button.OnClickListener()
+        {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
                 Intent mainActivity = new Intent(view.getContext(), MainActivity.class);
                 startActivity(mainActivity);
             }
         });
 
-        reFight.setOnClickListener(new Button.OnClickListener() {
+        reFight.setOnClickListener(new Button.OnClickListener()
+        {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
                 Intent gameActivity = new Intent(view.getContext(), GameActivity.class);
                 Bundle bundle1 = getIntent().getExtras();
                 int ordinal = bundle1.getInt(getString(R.string.keyDifficulty));
@@ -80,6 +80,7 @@ public class FinishActivity extends AppCompatActivity {
     @Override
     protected void onStart()
     {
+
         super.onStart();
         Intent intent = new Intent(this, RecordService.class);
         bindService(intent, recordServiceConnection, Context.BIND_AUTO_CREATE);
@@ -97,7 +98,6 @@ public class FinishActivity extends AppCompatActivity {
     {
         if(isBind)
         {
-            System.out.println("Is Bind");
             recordApi.InsertRecord("assaf",6, DifficultyType.Easy);
         }
     }

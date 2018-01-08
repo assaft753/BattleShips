@@ -21,10 +21,10 @@ import com.moshesteinvortzel.assaftayouri.battleships.Logic.Secondary.Record;
 
 import java.io.StreamCorruptedException;
 
-public class RecordService extends Service implements LocationListener,Runnable
+public class RecordService extends Service implements LocationListener, Runnable
 {
     private RecordHandler recordHandler;
-    private final IBinder apiRecord=new RecordApi();
+    private final IBinder apiRecord;
     private RecordApi recordApi;
     private LocationManager locationManager;
     private String playerName;
@@ -32,17 +32,32 @@ public class RecordService extends Service implements LocationListener,Runnable
     private DifficultyType playerDifficultyType;
     private Location location;
 
+    public RecordService()
+    {
+        super();
+        apiRecord = new RecordApi();
+    }
+
     @Override
     public IBinder onBind(Intent intent)
     {
+        if (recordHandler == null)
+        {
+            recordHandler = new RecordHandler(getApplicationContext());
+        }
+        if (locationManager == null)
+        {
+            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        }
         return apiRecord;
     }
+
 
     @Override
     public void onLocationChanged(Location location)
     {
         locationManager.removeUpdates(this);
-        this.location=location;
+        this.location = location;
         new Thread(this).start();
 
     }
@@ -68,39 +83,31 @@ public class RecordService extends Service implements LocationListener,Runnable
     @Override
     public void run()
     {
-        LatLng latLng=new LatLng(location.getLatitude(),location.getLongitude());
-        recordHandler.InsertRecords(playerDifficultyType,new Record(latLng,playerScore,playerName));
-        System.out.println(location.toString()+" name "+playerName+" score "+playerScore);
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        recordHandler.InsertRecords(playerDifficultyType, new Record(latLng, playerScore, playerName));
+        System.out.println(location.toString() + " name " + playerName + " score " + playerScore);
         recordHandler.CloseSQl();
     }
 
 
     public class RecordApi extends Binder
     {
-       public void InsertRecord(String name,int score,DifficultyType difficultyType)
+        public void InsertRecord(String name, int score, DifficultyType difficultyType)
         {
-            RecordService.this.InsertRecord(name,score,difficultyType);
-        }
-        public void Init(LocationManager locationManager,RecordHandler recordHandler)
-        {
-            RecordService.this.Init(locationManager,recordHandler);
+            RecordService.this.InsertRecord(name, score, difficultyType);
         }
     }
-    public void InsertRecord(String name,int score,DifficultyType difficultyType)
+
+    public void InsertRecord(String name, int score, DifficultyType difficultyType)
     {
-        playerName=name;
-        playerScore=score;
-        playerDifficultyType=difficultyType;
+        playerName = name;
+        playerScore = score;
+        playerDifficultyType = difficultyType;
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
         {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
         }
 
 
-    }
-    public void Init(LocationManager locationManager,RecordHandler recordHandler)
-    {
-        this.locationManager=locationManager;
-        this.recordHandler=recordHandler;
     }
 }
