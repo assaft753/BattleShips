@@ -66,4 +66,9 @@ public class RecordHandler
         }
         return records;
     }
+    public void CloseSQl()
+    {
+        sql_handler.close();
+    }
+
 }

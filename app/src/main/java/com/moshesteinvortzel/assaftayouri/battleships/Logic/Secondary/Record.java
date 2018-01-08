@@ -12,4 +12,15 @@ public class Record
     public int score;
     public String playerName;
 
+    public Record()
+    {
+
+    }
+
+    public Record(LatLng location, int score, String playerName)
+    {
+        this.location = location;
+        this.score = score;
+        this.playerName = playerName;
+    }
 }

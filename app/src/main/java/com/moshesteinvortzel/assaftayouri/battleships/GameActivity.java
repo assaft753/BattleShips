@@ -43,8 +43,9 @@ import com.moshesteinvortzel.assaftayouri.battleships.Adapters.PlayerGridAdapter
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.Core.BattleShip;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.Enum.DifficultyType;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.Enum.PlayerType;
+import com.moshesteinvortzel.assaftayouri.battleships.Logic.SQL.RecordHandler;
 
-public class GameActivity extends AppCompatActivity implements LocationListener
+public class GameActivity extends AppCompatActivity
 {
     private BattleShip battleShip;
     private TextView textView;
@@ -55,14 +56,13 @@ public class GameActivity extends AppCompatActivity implements LocationListener
     private RectangleAnimationHandler animatorHandler;
     private ProgressBar progressBar;
     private boolean toReOrder = false;
-    private LocationManager locationManager;
-    private boolean test = false;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         System.out.println("create");
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         Bundle bundle = getIntent().getExtras();
@@ -142,7 +142,7 @@ public class GameActivity extends AppCompatActivity implements LocationListener
             }
         });
 
-        new Thread(new Runnable()
+        /*new Thread(new Runnable()
         {
             @Override
             public void run()
@@ -173,36 +173,12 @@ public class GameActivity extends AppCompatActivity implements LocationListener
                 }
 
             }
-        }).start();
+        }).start();*/
+        Intent finishActivity = new Intent(getApplicationContext(), FinishActivity.class);
+        finishActivity.putExtra(getString(R.string.keyDifficulty), battleShip.getDifficultyType().ordinal());
+        finishActivity.putExtra(getString(R.string.keyState), getString(R.string.Won));
+        startActivity(finishActivity);
     }
-
-    @Override
-    protected void onStop()
-    {
-        System.out.println("stop");
-        super.onStop();
-    }
-
-    @Override
-    protected void onResume()
-    {
-        System.out.println("resume");
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && test == false)
-        {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-        }
-
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause()
-    {
-        System.out.println("pause");
-        //locationManager.removeUpdates(this);
-        super.onPause();
-    }
-
 
     private void activateReOrder()
     {
@@ -252,32 +228,5 @@ public class GameActivity extends AppCompatActivity implements LocationListener
         animatorHandler.stopAnimating();
     }
 
-    @Override
-    public void onLocationChanged(Location location)
-    {
-        Toast.makeText(getApplicationContext(), location.toString(), Toast.LENGTH_SHORT).show();
-        test = true;
-        locationManager.removeUpdates(this);
-        System.out.println(location.toString());
-
-    }
-
-    @Override
-    public void onStatusChanged(String s, int i, Bundle bundle)
-    {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String s)
-    {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String s)
-    {
-
-    }
 }
 
