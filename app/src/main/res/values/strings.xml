@@ -14,4 +14,5 @@
     <string name="computerTurn">Computer Turn</string>
     <string name="keyDifficulty">difficulty</string>
     <string name="keyState">state</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

@@ -5,11 +5,14 @@ import com.moshesteinvortzel.assaftayouri.battleships.Logic.Core.BattleShip;
 /**
  * Created by assaftayouri on 04/12/2017.
  */
-public enum DifficultyType {
+public enum DifficultyType
+{
     Easy, Medium, Hard;
 
-    public int getDifficultyAsNumber() {
-        switch (this) {
+    public int getDifficultyAsNumber()
+    {
+        switch (this)
+        {
             case Easy:
                 return BattleShip.EASY;
             case Medium:
@@ -20,4 +23,21 @@ public enum DifficultyType {
                 return BattleShip.EASY;
         }
     }
+
+    @Override
+    public String toString()
+    {
+        switch (this)
+        {
+            case Easy:
+                return "Easy";
+            case Medium:
+                return "Medium";
+            case Hard:
+                return "Hard";
+            default:
+                return "Easy";
+        }
+    }
+
 }

@@ -1,15 +1,32 @@
 package com.moshesteinvortzel.assaftayouri.battleships;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.location.OnNmeaMessageListener;
+import android.os.Debug;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.EventLog;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationSet;
@@ -27,9 +44,7 @@ import com.moshesteinvortzel.assaftayouri.battleships.Logic.Core.BattleShip;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.Enum.DifficultyType;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.Enum.PlayerType;
 
-import java.security.PublicKey;
-
-public class GameActivity extends AppCompatActivity
+public class GameActivity extends AppCompatActivity implements LocationListener
 {
     private BattleShip battleShip;
     private TextView textView;
@@ -40,14 +55,18 @@ public class GameActivity extends AppCompatActivity
     private RectangleAnimationHandler animatorHandler;
     private ProgressBar progressBar;
     private boolean toReOrder = false;
+    private LocationManager locationManager;
+    private boolean test = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        System.out.println("create");
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         Bundle bundle = getIntent().getExtras();
-        battleShip = new BattleShip(DifficultyType.values()[bundle.getInt(getString(R.string.keyDifficulty))]);
+        battleShip = new BattleShip(DifficultyType.values()[bundle.getInt(getString(R.string.keyDifficulty))], getApplicationContext());
         textView = (TextView) findViewById(R.id.statingTurn);
         playerGridView = (GridView) findViewById(R.id.playerGrid);
         computerGridView = (GridView) findViewById(R.id.computerGrid);
@@ -155,13 +174,39 @@ public class GameActivity extends AppCompatActivity
 
             }
         }).start();
-
-
     }
+
+    @Override
+    protected void onStop()
+    {
+        System.out.println("stop");
+        super.onStop();
+    }
+
+    @Override
+    protected void onResume()
+    {
+        System.out.println("resume");
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && test == false)
+        {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+        }
+
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause()
+    {
+        System.out.println("pause");
+        //locationManager.removeUpdates(this);
+        super.onPause();
+    }
+
 
     private void activateReOrder()
     {
-        System.out.println("activate");
+        //System.out.println("activate");
         this.computerGridView.setEnabled(false);
         toReOrder = true;
         animatorHandler.startAnimating();
@@ -177,7 +222,7 @@ public class GameActivity extends AppCompatActivity
                         Thread.sleep(2000);
                         if (toReOrder)
                         {
-                            System.out.println("enter toreorder");
+                            //System.out.println("enter toreorder");
                             battleShip.reArrangeShips();
                             runOnUiThread(new Runnable()
                             {
@@ -201,10 +246,38 @@ public class GameActivity extends AppCompatActivity
 
     private void deactivateReOrder()
     {
-        System.out.println("deactivate");
+        //System.out.println("deactivate");
         this.computerGridView.setEnabled(true);
         toReOrder = false;
         animatorHandler.stopAnimating();
+    }
+
+    @Override
+    public void onLocationChanged(Location location)
+    {
+        Toast.makeText(getApplicationContext(), location.toString(), Toast.LENGTH_SHORT).show();
+        test = true;
+        locationManager.removeUpdates(this);
+        System.out.println(location.toString());
+
+    }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle)
+    {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String s)
+    {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String s)
+    {
+
     }
 }
 

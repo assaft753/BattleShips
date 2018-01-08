@@ -1,10 +1,18 @@
 package com.moshesteinvortzel.assaftayouri.battleships.Logic.Core;
 
+import android.content.Context;
 import android.text.method.HideReturnsTransformationMethod;
+
+import com.google.android.gms.maps.model.LatLng;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.Enum.PlayerType;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.Enum.CubeType;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.Enum.DifficultyType;
+import com.moshesteinvortzel.assaftayouri.battleships.Logic.SQL.RecordHandler;
+import com.moshesteinvortzel.assaftayouri.battleships.Logic.SQL.SQL_Handler;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.Secondary.Position;
+import com.moshesteinvortzel.assaftayouri.battleships.Logic.Secondary.Record;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -21,12 +29,13 @@ public class BattleShip
     public static final int AMOUNT = 4;
 
     private Board PlayerBoard;
+
     private Board ComputerBoard;
     private HashMap<PlayerType, Board> BoardByTurn;
     private DifficultyType difficultyType;
     public PlayerType Turn;
 
-    public BattleShip(DifficultyType diff)
+    public BattleShip(DifficultyType diff, Context context)
     {
         this.difficultyType = diff;
         this.PlayerBoard = new Board(diff);
@@ -37,12 +46,10 @@ public class BattleShip
         Turn = PlayerType.Player;
     }
 
-
     public DifficultyType getDifficultyType()
     {
         return this.difficultyType;
     }
-
 
     private Boolean Play(int position, PlayerType turn)
     {
@@ -74,7 +81,8 @@ public class BattleShip
         if (this.Turn == PlayerType.Computer)
         {
             this.Turn = PlayerType.Player;
-        } else
+        }
+        else
         {
             this.Turn = PlayerType.Computer;
         }
