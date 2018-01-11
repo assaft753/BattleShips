@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_weight="2"
     android:background="@drawable/endsubmarine"
     android:orientation="vertical"
     tools:context="com.moshesteinvortzel.assaftayouri.battleships.FinishActivity">
@@ -24,17 +23,18 @@
         app:layout_constraintHorizontal_bias="0.051"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/stateText"
-        tools:text="@string/EnterName" />
+        android:text="@string/EnterName" />
 
-    <AutoCompleteTextView
-        android:id="@+id/autoCompleteTextView"
+    <EditText
+        android:id="@+id/nameInput"
         style="@style/Widget.AppCompat.AutoCompleteTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"
-        android:layout_weight="2"
+        android:textColor="@color/colorAccent"
         android:textSize="24sp"
+        android:inputType="text"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.052"
@@ -47,13 +47,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="16dp"
-        android:layout_weight="1"
         android:background="#3549c9"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:text="@string/Again"
         android:textColor="#FFFF"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/restartBtn"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.987"
@@ -71,7 +70,7 @@
         android:paddingRight="20dp"
         android:text="@string/Restart"
         android:textColor="#FFFF"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="0dp" />
 
@@ -83,16 +82,15 @@
         android:layout_marginBottom="468dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_weight="1"
         android:text="YOU WON"
-        android:textSize="50dp"
+        android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -110,7 +108,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/autoCompleteTextView"
+        app:layout_constraintTop_toBottomOf="@+id/nameInput"
         app:layout_constraintVertical_bias="0.146" />
 
 </android.support.constraint.ConstraintLayout>

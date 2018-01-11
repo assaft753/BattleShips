@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Button;
 import android.view.View;
@@ -17,27 +18,37 @@ import com.moshesteinvortzel.assaftayouri.battleships.Logic.Enum.DifficultyType;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.SQL.RecordHandler;
 import com.moshesteinvortzel.assaftayouri.battleships.Services.RecordService;
 
-public class FinishActivity extends AppCompatActivity {
+public class FinishActivity extends AppCompatActivity
+{
 
     private RecordService.RecordApi recordApi;
-    private boolean isBind=false;
-    private ServiceConnection recordServiceConnection=new ServiceConnection()
+    private TextView stateTextView;
+    private Button changeDifficulty;
+    private Button reFight;
+    private EditText playerName;
+    private TextView scoreText;
+    private TextView enterNameLabel;
+    private Bundle bundle;
+    private String state;
+    private DifficultyType difficultyType;
+    private int score;
+    boolean isWon = false;
+    private boolean isBind = false;
+    private ServiceConnection recordServiceConnection = new ServiceConnection()
     {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder)
         {
-            System.out.println("Is Bind");
-            recordApi=(RecordService.RecordApi)iBinder;
-            isBind=true;
+            recordApi = (RecordService.RecordApi) iBinder;
+            isBind = true;
 
         }
 
         @Override
         public void onServiceDisconnected(ComponentName componentName)
         {
-            System.out.println("unbind");
-            isBind=false;
-            recordApi=null;
+            isBind = false;
+            recordApi = null;
         }
     };
 
@@ -46,18 +57,36 @@ public class FinishActivity extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finish);
-        Bundle bundle = getIntent().getExtras();
-        String state = bundle.getString(getString(R.string.keyState));
-        TextView textView = (TextView) findViewById(R.id.stateText);
-        textView.setText(state);
-        Button changeDifficulty = (Button) findViewById(R.id.restartBtn);
-        Button reFight = (Button) findViewById(R.id.againBtn);
+        stateTextView = (TextView) findViewById(R.id.stateText);
+        changeDifficulty = (Button) findViewById(R.id.restartBtn);
+        enterNameLabel = (TextView) findViewById(R.id.EnterNameText);
+        reFight = (Button) findViewById(R.id.againBtn);
+        playerName = (EditText) findViewById(R.id.nameInput);
+        scoreText = (TextView) findViewById(R.id.textScore);
+        scoreText.setAlpha(0);
+        enterNameLabel.setAlpha(0);
+        playerName.setAlpha(0);
+        bundle = getIntent().getExtras();
+        state = bundle.getString(getString(R.string.keyState));
+        int ordinal = bundle.getInt(getString(R.string.keyDifficulty));
+        difficultyType = DifficultyType.values()[ordinal];
+        stateTextView.setText(state);
+        if (getString(R.string.Won).equals(state))
+        {
+            score = bundle.getInt("score");
+            scoreText.setText(String.valueOf(score));
+            scoreText.setAlpha(1);
+            enterNameLabel.setAlpha(1);
+            playerName.setAlpha(1);
+            isWon = true;
+        }
 
         changeDifficulty.setOnClickListener(new Button.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
+                EnterPlayerRecord();
                 Intent mainActivity = new Intent(view.getContext(), MainActivity.class);
                 startActivity(mainActivity);
             }
@@ -68,10 +97,9 @@ public class FinishActivity extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
+                EnterPlayerRecord();
                 Intent gameActivity = new Intent(view.getContext(), GameActivity.class);
-                Bundle bundle1 = getIntent().getExtras();
-                int ordinal = bundle1.getInt(getString(R.string.keyDifficulty));
-                gameActivity.putExtra(getString(R.string.keyDifficulty), ordinal);
+                gameActivity.putExtra(getString(R.string.keyDifficulty), difficultyType.ordinal());
                 startActivity(gameActivity);
             }
         });
@@ -80,7 +108,6 @@ public class FinishActivity extends AppCompatActivity {
     @Override
     protected void onStart()
     {
-
         super.onStart();
         Intent intent = new Intent(this, RecordService.class);
         bindService(intent, recordServiceConnection, Context.BIND_AUTO_CREATE);
@@ -94,11 +121,14 @@ public class FinishActivity extends AppCompatActivity {
 
     }
 
-    public void onInsertRecordClick(View view)
+    private void EnterPlayerRecord()
     {
-        if(isBind)
+        if (isWon)
         {
-            recordApi.InsertRecord("assaf",6, DifficultyType.Easy);
+            if (isBind)
+            {
+                recordApi.InsertRecord(playerName.getText().toString(), score,difficultyType);
+            }
         }
     }
 }

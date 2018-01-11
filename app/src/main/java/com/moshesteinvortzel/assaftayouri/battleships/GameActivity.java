@@ -56,6 +56,7 @@ public class GameActivity extends AppCompatActivity
     private RectangleAnimationHandler animatorHandler;
     private ProgressBar progressBar;
     private boolean toReOrder = false;
+    int score;
 
 
 
@@ -66,6 +67,7 @@ public class GameActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         Bundle bundle = getIntent().getExtras();
+        score=0;
         battleShip = new BattleShip(DifficultyType.values()[bundle.getInt(getString(R.string.keyDifficulty))], getApplicationContext());
         textView = (TextView) findViewById(R.id.statingTurn);
         playerGridView = (GridView) findViewById(R.id.playerGrid);
@@ -86,12 +88,14 @@ public class GameActivity extends AppCompatActivity
             {
                 if (battleShip.getComputerBoard().checkIfTouched(position) == false)
                 {
+                    score++;
                     boolean win = battleShip.playerShoot(position);
                     if (win)
                     {
                         Intent finishActivity = new Intent(view.getContext(), FinishActivity.class);
                         finishActivity.putExtra(getString(R.string.keyDifficulty), battleShip.getDifficultyType().ordinal());
                         finishActivity.putExtra(getString(R.string.keyState), getString(R.string.Won));
+                        finishActivity.putExtra("score",score);
                         startActivity(finishActivity);
                     }
 
@@ -174,10 +178,6 @@ public class GameActivity extends AppCompatActivity
 
             }
         }).start();*/
-        Intent finishActivity = new Intent(getApplicationContext(), FinishActivity.class);
-        finishActivity.putExtra(getString(R.string.keyDifficulty), battleShip.getDifficultyType().ordinal());
-        finishActivity.putExtra(getString(R.string.keyState), getString(R.string.Won));
-        startActivity(finishActivity);
     }
 
     private void activateReOrder()
