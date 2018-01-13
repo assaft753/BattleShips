@@ -63,9 +63,9 @@ public class FinishActivity extends AppCompatActivity
         reFight = (Button) findViewById(R.id.againBtn);
         playerName = (EditText) findViewById(R.id.nameInput);
         scoreText = (TextView) findViewById(R.id.textScore);
-        scoreText.setAlpha(0);
-        enterNameLabel.setAlpha(0);
-        playerName.setAlpha(0);
+        scoreText.setVisibility(View.INVISIBLE);
+        enterNameLabel.setVisibility(View.INVISIBLE);
+        playerName.setVisibility(View.INVISIBLE);
         bundle = getIntent().getExtras();
         state = bundle.getString(getString(R.string.keyState));
         int ordinal = bundle.getInt(getString(R.string.keyDifficulty));
@@ -75,9 +75,9 @@ public class FinishActivity extends AppCompatActivity
         {
             score = bundle.getInt("score");
             scoreText.setText(String.valueOf(score));
-            scoreText.setAlpha(1);
-            enterNameLabel.setAlpha(1);
-            playerName.setAlpha(1);
+            scoreText.setVisibility(View.VISIBLE);
+            enterNameLabel.setVisibility(View.VISIBLE);
+            playerName.setVisibility(View.VISIBLE);
             isWon = true;
         }
 

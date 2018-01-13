@@ -38,32 +38,32 @@ public class RecordHandler
 
     public ArrayList<Record> GetRecords(DifficultyType difficultyType)
     {
+        double lati;
+        double longi;
+        Record record;
         ArrayList<Record> records = new ArrayList<Record>();
         db = sql_handler.getReadableDatabase();
         String[] projection = {
+                SqlEntities._ID,
                 SqlEntities.COL_NAME,
                 SqlEntities.COL_SCORE,
                 SqlEntities.COL_LATITUDE,
                 SqlEntities.COL_LONGITUDE
         };
 
-        String sortOrder = SqlEntities.COL_SCORE + " DESC";
+        String sortOrder = SqlEntities.COL_SCORE + " ASC";
         Cursor cursor = db.query(difficultyType.toString(), projection, null, null, null, null, sortOrder, "10");
         while (cursor.moveToNext())
         {
-            Record record = new Record();
+            record = new Record(cursor.getInt(cursor.getColumnIndexOrThrow(SqlEntities._ID)));
             record.playerName = cursor.getString(cursor.getColumnIndexOrThrow(SqlEntities.COL_NAME));
             record.score = cursor.getInt(cursor.getColumnIndexOrThrow(SqlEntities.COL_SCORE));
-            double lati = cursor.getDouble(cursor.getColumnIndexOrThrow(SqlEntities.COL_LATITUDE));
-            double longi = cursor.getDouble(cursor.getColumnIndexOrThrow(SqlEntities.COL_LONGITUDE));
+            lati = cursor.getDouble(cursor.getColumnIndexOrThrow(SqlEntities.COL_LATITUDE));
+            longi = cursor.getDouble(cursor.getColumnIndexOrThrow(SqlEntities.COL_LONGITUDE));
             record.location = new LatLng(lati, longi);
             records.add(record);
         }
         cursor.close();
-        for (Record temp : records)
-        {
-            System.out.println(temp.playerName + " " + temp.score + " " + temp.location);
-        }
         return records;
     }
     public void CloseSQl()

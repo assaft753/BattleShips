@@ -52,7 +52,6 @@ public class RecordService extends Service implements LocationListener, Runnable
         return apiRecord;
     }
 
-
     @Override
     public void onLocationChanged(Location location)
     {

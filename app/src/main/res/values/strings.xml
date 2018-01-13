@@ -16,4 +16,8 @@
     <string name="EnterName">Enter Your Name:</string>
     <string name="keyState">state</string>
     <string name="title_activity_maps">Map</string>
+    <string name="playerName">Name</string>
+    <string name="rank">Rank</string>
+    <string name="score">Score</string>
+    <string name="location">Location</string>
 </resources>
