@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.content.Intent;
 
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.Enum.DifficultyType;
+import com.moshesteinvortzel.assaftayouri.battleships.Services.SensorService;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -95,12 +96,9 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    protected void onStart()
-    {
-        super.onStart();
-        System.out.println(this.fightBtn.getVisibility());
-        //fightBtn.setTextColor(0xf53d3d);
-    }
+
+
 }
+
+
 

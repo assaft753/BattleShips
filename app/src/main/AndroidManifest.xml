@@ -21,7 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GameActivity" />
+        <activity android:name=".GameActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".FinishActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,7 +47,12 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".RecordsActivity"></activity>
+        <activity android:name=".RecordsActivity" />
+
+        <service
+            android:name=".Services.SensorService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

@@ -1,19 +1,16 @@
 package com.moshesteinvortzel.assaftayouri.battleships;
 
 import android.app.Fragment;
-import android.app.ListFragment;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.moshesteinvortzel.assaftayouri.battleships.Adapters.ComputerGridAdapter;
 import com.moshesteinvortzel.assaftayouri.battleships.Adapters.RecordDecorator;
+import com.moshesteinvortzel.assaftayouri.battleships.Adapters.RecordsListAdapter;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.Secondary.Record;
 
 import java.util.ArrayList;
@@ -60,6 +57,7 @@ public class RecordsTableFragment extends Fragment
             }
         });
 
+
     }
 
     public void SetRecordHighlight(Record record)
@@ -77,7 +75,6 @@ public class RecordsTableFragment extends Fragment
            }
         }
         recordsList.invalidate();
-        //((RecordsListAdapter)recordsList.getAdapter()).notifyDataSetChanged();
     }
 
     public void InitRecords(ArrayList<Record> records)

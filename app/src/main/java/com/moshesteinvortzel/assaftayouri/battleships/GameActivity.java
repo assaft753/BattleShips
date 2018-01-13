@@ -7,7 +7,9 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -22,6 +24,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.OnNmeaMessageListener;
 import android.os.Debug;
+import android.os.IBinder;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -44,8 +47,10 @@ import com.moshesteinvortzel.assaftayouri.battleships.Logic.Core.BattleShip;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.Enum.DifficultyType;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.Enum.PlayerType;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.SQL.RecordHandler;
+import com.moshesteinvortzel.assaftayouri.battleships.Services.RecordService;
+import com.moshesteinvortzel.assaftayouri.battleships.Services.SensorService;
 
-public class GameActivity extends AppCompatActivity
+public class GameActivity extends AppCompatActivity implements SensorService.IsensorChangable
 {
     private BattleShip battleShip;
     private TextView textView;
@@ -55,8 +60,34 @@ public class GameActivity extends AppCompatActivity
     private RelativeLayout rectangleDraw;
     private RectangleAnimationHandler animatorHandler;
     private ProgressBar progressBar;
+    private SensorService.SensorApi sensorApi;
+    private boolean isBind;
     private boolean toReOrder = false;
     int score;
+    private ServiceConnection sensorServiceConnection = new ServiceConnection()
+    {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder)
+        {
+            if (iBinder != null)
+            {
+                sensorApi = (SensorService.SensorApi) iBinder;
+                sensorApi.Init(GameActivity.this);
+                isBind = true;
+            }
+            else
+            {
+                isBind = false;
+            }
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName)
+        {
+            isBind = false;
+            sensorApi = null;
+        }
+    };
 
 
     @Override
@@ -68,6 +99,7 @@ public class GameActivity extends AppCompatActivity
         Bundle bundle = getIntent().getExtras();
         score = 0;
         battleShip = new BattleShip(DifficultyType.values()[bundle.getInt(getString(R.string.keyDifficulty))], getApplicationContext());
+
         textView = (TextView) findViewById(R.id.statingTurn);
         playerGridView = (GridView) findViewById(R.id.playerGrid);
         computerGridView = (GridView) findViewById(R.id.computerGrid);
@@ -104,8 +136,9 @@ public class GameActivity extends AppCompatActivity
                     }
 
                     battleShip.playerShoot(position);
-                    ((ComputerGridAdapter) computerGridView.getAdapter()).notifyDataSetChanged();//
+                    ((ComputerGridAdapter) computerGridView.getAdapter()).notifyDataSetChanged();
                     progressBar.setVisibility(View.VISIBLE);
+                    System.out.println("lock 1");
                     computerGridView.setEnabled(false);
                     textView.setText(R.string.computerTurn);
 
@@ -130,10 +163,11 @@ public class GameActivity extends AppCompatActivity
                                     progressBar.setVisibility(View.INVISIBLE);
                                     ((PlayerGridAdapter) playerGridView.getAdapter()).notifyDataSetChanged();
                                     textView.setText(R.string.playerTurn);
-                                    if (toReOrder == false)
-                                    {
+                                    //if (toReOrder == false)
+                                    //{
+                                        System.out.println("unloack 1");
                                         computerGridView.setEnabled(true);
-                                    }
+                                    //}
                                 }
                             });
 
@@ -186,8 +220,6 @@ public class GameActivity extends AppCompatActivity
 
     private void activateReOrder()
     {
-        //System.out.println("activate");
-        this.computerGridView.setEnabled(false);
         toReOrder = true;
         animatorHandler.startAnimating();
         new Thread(new Runnable()
@@ -202,7 +234,6 @@ public class GameActivity extends AppCompatActivity
                         Thread.sleep(2000);
                         if (toReOrder)
                         {
-                            //System.out.println("enter toreorder");
                             battleShip.reArrangeShips();
                             runOnUiThread(new Runnable()
                             {
@@ -227,10 +258,48 @@ public class GameActivity extends AppCompatActivity
     private void deactivateReOrder()
     {
         //System.out.println("deactivate");
-        this.computerGridView.setEnabled(true);
+        //this.computerGridView.setEnabled(true);
         toReOrder = false;
         animatorHandler.stopAnimating();
     }
 
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+        Intent intent = new Intent(this, SensorService.class);
+        bindService(intent, sensorServiceConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    @Override
+    protected void onStop()
+    {
+        super.onStop();
+        unbindService(sensorServiceConnection);
+
+    }
+
+
+    @Override
+    public void StartAnimationBySensor()
+    {
+        if (toReOrder==false)
+        {
+            System.out.println("enter start anim");
+            activateReOrder();
+        }
+
+    }
+
+    @Override
+    public void StopAnimationBySensor()
+    {
+        if (toReOrder==true)
+        {
+            System.out.println("enter stop anim");
+            deactivateReOrder();
+        }
+    }
 }
 

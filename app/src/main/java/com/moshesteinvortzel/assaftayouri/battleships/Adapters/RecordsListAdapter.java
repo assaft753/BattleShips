@@ -1,4 +1,4 @@
-package com.moshesteinvortzel.assaftayouri.battleships;
+package com.moshesteinvortzel.assaftayouri.battleships.Adapters;
 
 import android.content.Context;
 import android.database.DataSetObserver;
@@ -13,9 +13,11 @@ import android.widget.TextView;
 
 import com.moshesteinvortzel.assaftayouri.battleships.Adapters.RecordDecorator;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.Secondary.Record;
+import com.moshesteinvortzel.assaftayouri.battleships.R;
 
 import org.w3c.dom.Text;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -83,12 +85,11 @@ public class RecordsListAdapter extends BaseAdapter
         {
             //row.getBackground().setAlpha(0);
         }
-
         rank.setText(i + 1 + ".");
         playerName.setText(records.get(i).record.playerName);
         score.setText(String.valueOf(records.get(i).record.score));
-        locationString = "Lat:" + String.valueOf(records.get(i).record.location.latitude)
-                + "\n" + "long:" + String.valueOf(records.get(i).record.location.longitude);
+        locationString = "Lat:" +String.valueOf(new DecimalFormat("##.##").format(records.get(i).record.location.latitude))
+                + "\n" + "long:" + String.valueOf(new DecimalFormat("##.##").format(records.get(i).record.location.longitude));
         location.setText(locationString);
         return row;
     }
