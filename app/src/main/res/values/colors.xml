@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#303f9f</color>
     <color name="colorAccent">#ff4081</color>
     <color name="Danger">#f53d3d</color>
+    <color name="NewDanger">#f53d3f</color>
+
 </resources>

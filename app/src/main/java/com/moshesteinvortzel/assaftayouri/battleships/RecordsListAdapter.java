@@ -62,35 +62,29 @@ public class RecordsListAdapter extends BaseAdapter
         String locationString;
         if (view == null)
         {
-
             row = mInflater.inflate(R.layout.record_list_element, viewGroup, false);
-
         }
 
         else
         {
             row = view;
-            view.setBackgroundColor(0xf53d3d);
         }
 
         rank = (TextView) row.findViewById(R.id.rank);
         playerName = (TextView) row.findViewById(R.id.player_name);
         score = (TextView) row.findViewById(R.id.score);
         location = (TextView) row.findViewById(R.id.location);
-        //System.out.println(i+1+" "+records.get(i).toFill);
 
-        if(i==2)//records.get(i).toFill)
+        if (records.get(i).toFill)
         {
-            row.getBackground().setAlpha(0);
-            System.out.println(i+1+"enter");
+            //row.getBackground().setAlpha(255);
         }
         else
         {
-            //row.getBackground().setAlpha(255);
-            System.out.println(i+1+" not enter");
+            //row.getBackground().setAlpha(0);
         }
 
-        rank.setText(i+1+".");
+        rank.setText(i + 1 + ".");
         playerName.setText(records.get(i).record.playerName);
         score.setText(String.valueOf(records.get(i).record.score));
         locationString = "Lat:" + String.valueOf(records.get(i).record.location.latitude)

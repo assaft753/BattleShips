@@ -26,10 +26,12 @@ public class MainActivity extends AppCompatActivity
     HashMap<Integer, DifficultyType> Difficulty = new HashMap<Integer, DifficultyType>();
     DifficultyType difficultyType;
     Button fightBtn;
+    Button recordBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        System.out.println("sss");
         CheckLocationPermission();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -40,7 +42,9 @@ public class MainActivity extends AppCompatActivity
         this.Difficulty.put(R.id.medium, DifficultyType.Medium);
         this.Difficulty.put(R.id.hard, DifficultyType.Hard);
         setDifficulty(R.id.easy);
+
         fightBtn = (Button) findViewById(R.id.okButton);
+        recordBtn=(Button)findViewById(R.id.recordButton);
 
         fightBtn.setOnClickListener(new Button.OnClickListener()
         {
@@ -50,6 +54,17 @@ public class MainActivity extends AppCompatActivity
                 Intent gameActivity = new Intent(view.getContext(), GameActivity.class);
                 gameActivity.putExtra(getString(R.string.keyDifficulty), difficultyType.ordinal());
                 startActivity(gameActivity);
+            }
+        });
+
+        recordBtn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent recordsActivity = new Intent(view.getContext(), RecordsActivity.class);
+                recordsActivity.putExtra(getString(R.string.keyDifficulty), difficultyType.ordinal());
+                startActivity(recordsActivity);
             }
         });
     }
@@ -78,6 +93,14 @@ public class MainActivity extends AppCompatActivity
         {
             System.out.println("Accepted");
         }
+    }
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+        System.out.println(this.fightBtn.getVisibility());
+        //fightBtn.setTextColor(0xf53d3d);
     }
 }
 

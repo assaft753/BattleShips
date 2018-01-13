@@ -20,4 +20,5 @@
     <string name="rank">Rank</string>
     <string name="score">Score</string>
     <string name="location">Location</string>
+    <string name="showrecs">Records</string>
 </resources>

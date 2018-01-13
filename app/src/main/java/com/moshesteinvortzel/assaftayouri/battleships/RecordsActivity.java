@@ -33,10 +33,11 @@ public class RecordsActivity extends AppCompatActivity implements OnMapReadyCall
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_records);
+        Bundle bundle = getIntent().getExtras();
         recordHandler = new RecordHandler(getApplicationContext());
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        records = recordHandler.GetRecords(DifficultyType.Easy);
+        records = recordHandler.GetRecords(DifficultyType.values()[bundle.getInt(getString(R.string.keyDifficulty))]);
         recordsTableFragment = (RecordsTableFragment) getFragmentManager().findFragmentById(R.id.records_fragment);
         recordsTableFragment.InitRecords(records);
         recordsTableFragment.onRecordTableClick = this;
