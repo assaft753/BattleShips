@@ -42,7 +42,6 @@ public class RectangleAnimationHandler
             @Override
             public void onAnimationCancel(Animator animation)
             {
-                System.out.println("cancel");
 
             }
 
