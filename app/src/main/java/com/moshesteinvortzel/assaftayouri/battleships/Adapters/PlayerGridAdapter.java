@@ -2,9 +2,11 @@ package com.moshesteinvortzel.assaftayouri.battleships.Adapters;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+
 import com.moshesteinvortzel.assaftayouri.battleships.CubeView;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.Core.Board;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.Core.BattleShip;
@@ -55,7 +57,8 @@ public class PlayerGridAdapter extends BaseAdapter
         if (convertView == null)
         {
             cubeView = new CubeView(this.context, this.h);
-        } else
+        }
+        else
         {
             cubeView = (CubeView) convertView;
         }
@@ -66,19 +69,31 @@ public class PlayerGridAdapter extends BaseAdapter
         {
             int image = this.board.getCube(position).getSubmarineType().getIdOfImage(this.board.getCube(position).getOrientation());
             cubeView.cube.setImageResource(image);
-        } else
+        }
+        else
         {
 
             if (this.board.getCube(position).getStatus() == CubeType.None && this.board.getCube(position).getEmpty() == true)
             {
                 cubeView.setBackgroundColor(Color.LTGRAY);
-            } else if (board.getCube(position).getStatus() == CubeType.Hit)
+            }
+            else if (board.getCube(position).getStatus() == CubeType.Hit)
             {
-                cubeView.cube.setImageResource(R.drawable.hit);
-            } else if (board.getCube(position).getStatus() == CubeType.Miss)
+                cubeView.cube.setBackgroundResource(R.drawable.fire_animation);
+                AnimationDrawable animationDrawable=(AnimationDrawable)cubeView.cube.getBackground();
+                animationDrawable.setOneShot(true);
+                animationDrawable.start();
+                //cubeView.cube.setImageResource(R.drawable.hit);
+            }
+            else if (board.getCube(position).getStatus() == CubeType.Miss)
             {
-                cubeView.setBackgroundColor(0x92485BD2);
-            } else if (board.getCube(position).getStatus() == CubeType.Sink)
+                cubeView.cube.setBackgroundResource(R.drawable.water_animation);
+                AnimationDrawable animationDrawable=(AnimationDrawable)cubeView.cube.getBackground();
+                animationDrawable.setOneShot(true);
+                animationDrawable.start();
+                //cubeView.setBackgroundColor(0x92485BD2);
+            }
+            else if (board.getCube(position).getStatus() == CubeType.Sink)
             {
                 cubeView.cube.setImageResource(R.drawable.sink);
             }
