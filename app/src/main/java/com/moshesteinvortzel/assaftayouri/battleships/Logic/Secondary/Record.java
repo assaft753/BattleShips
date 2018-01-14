@@ -8,13 +8,13 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class Record
 {
-    public LatLng location;
-    public int score;
-    public String playerName;
+    private LatLng location;
+    private int score;
+    private String playerName;
     private int id;
-    public Record(int id)
+
+    public Record()
     {
-        this.id=id;
     }
 
     public Record(LatLng location, int score, String playerName)
@@ -22,6 +22,50 @@ public class Record
         this.location = location;
         this.score = score;
         this.playerName = playerName;
+    }
+
+    public LatLng getLocation()
+    {
+        return location;
+    }
+
+    public Record setLocation(LatLng location)
+    {
+        this.location = location;
+        return this;
+    }
+
+    public int getScore()
+    {
+        return score;
+    }
+
+    public Record setScore(int score)
+    {
+        this.score = score;
+        return this;
+    }
+
+    public String getPlayerName()
+    {
+        return playerName;
+    }
+
+    public Record setPlayerName(String playerName)
+    {
+        this.playerName = playerName;
+        return this;
+    }
+
+    public int getId()
+    {
+        return id;
+    }
+
+    public Record setId(int id)
+    {
+        this.id = id;
+        return this;
     }
 
     @Override

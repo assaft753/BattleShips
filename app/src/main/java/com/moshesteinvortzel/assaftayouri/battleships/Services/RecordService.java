@@ -106,7 +106,5 @@ public class RecordService extends Service implements LocationListener, Runnable
         {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
         }
-
-
     }
 }

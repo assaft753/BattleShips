@@ -46,7 +46,7 @@ public class RecordsActivity extends AppCompatActivity implements OnMapReadyCall
         mMap.setOnMarkerClickListener(this);
         for (Record record : records)
         {
-            mMap.addMarker(new MarkerOptions().position(record.location).title(record.playerName)).setTag(record);
+            mMap.addMarker(new MarkerOptions().position(record.getLocation()).title(record.getPlayerName())).setTag(record);
         }
 
     }
@@ -54,7 +54,7 @@ public class RecordsActivity extends AppCompatActivity implements OnMapReadyCall
     @Override
     public void OnRecordTableClick(Record record)
     {
-        mMap.animateCamera(CameraUpdateFactory.newLatLng(record.location));
+        mMap.animateCamera(CameraUpdateFactory.newLatLng(record.getLocation()));
     }
 
     @Override

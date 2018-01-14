@@ -25,14 +25,14 @@ public class RecordHandler
         sql_handler = new SQL_Handler(context);
     }
 
-    public void InsertRecords(DifficultyType difficultyType,Record record)
+    public void InsertRecords(DifficultyType difficultyType, Record record)
     {
         db = sql_handler.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(SqlEntities.COL_LATITUDE, record.location.latitude);
-        values.put(SqlEntities.COL_LONGITUDE, record.location.longitude);
-        values.put(SqlEntities.COL_NAME, record.playerName);
-        values.put(SqlEntities.COL_SCORE, record.score);
+        values.put(SqlEntities.COL_LATITUDE, record.getLocation().latitude);
+        values.put(SqlEntities.COL_LONGITUDE, record.getLocation().longitude);
+        values.put(SqlEntities.COL_NAME, record.getPlayerName());
+        values.put(SqlEntities.COL_SCORE, record.getScore());
         db.insert(difficultyType.toString(), null, values);
     }
 
@@ -55,17 +55,16 @@ public class RecordHandler
         Cursor cursor = db.query(difficultyType.toString(), projection, null, null, null, null, sortOrder, "10");
         while (cursor.moveToNext())
         {
-            record = new Record(cursor.getInt(cursor.getColumnIndexOrThrow(SqlEntities._ID)));
-            record.playerName = cursor.getString(cursor.getColumnIndexOrThrow(SqlEntities.COL_NAME));
-            record.score = cursor.getInt(cursor.getColumnIndexOrThrow(SqlEntities.COL_SCORE));
-            lati = cursor.getDouble(cursor.getColumnIndexOrThrow(SqlEntities.COL_LATITUDE));
-            longi = cursor.getDouble(cursor.getColumnIndexOrThrow(SqlEntities.COL_LONGITUDE));
-            record.location = new LatLng(lati, longi);
+            record = new Record();
+            record.setId(cursor.getInt(cursor.getColumnIndexOrThrow(SqlEntities._ID))).setPlayerName(cursor.getString(cursor.getColumnIndexOrThrow(SqlEntities.COL_NAME)))
+                    .setScore(cursor.getInt(cursor.getColumnIndexOrThrow(SqlEntities.COL_SCORE)))
+                    .setLocation(new LatLng(cursor.getDouble(cursor.getColumnIndexOrThrow(SqlEntities.COL_LATITUDE)), cursor.getDouble(cursor.getColumnIndexOrThrow(SqlEntities.COL_LONGITUDE))));
             records.add(record);
         }
         cursor.close();
         return records;
     }
+
     public void CloseSQl()
     {
         sql_handler.close();

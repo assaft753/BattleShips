@@ -71,10 +71,10 @@ public class RecordsListAdapter extends BaseAdapter
         location = (TextView) row.findViewById(R.id.location);
 
         rank.setText(i + 1 + ".");
-        playerName.setText(records.get(i).playerName);
-        score.setText(String.valueOf(records.get(i).score));
-        locationString = "Lat:" +String.valueOf(new DecimalFormat("##.##").format(records.get(i).location.latitude))
-                + "\n" + "long:" + String.valueOf(new DecimalFormat("##.##").format(records.get(i).location.longitude));
+        playerName.setText(records.get(i).getPlayerName());
+        score.setText(String.valueOf(records.get(i).getScore()));
+        locationString = "Lat:" +String.valueOf(new DecimalFormat("##.##").format(records.get(i).getLocation().latitude))
+                + "\n" + "long:" + String.valueOf(new DecimalFormat("##.##").format(records.get(i).getLocation().longitude));
         location.setText(locationString);
         return row;
     }

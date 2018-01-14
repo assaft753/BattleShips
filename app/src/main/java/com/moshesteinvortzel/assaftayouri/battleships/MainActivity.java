@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity
         setDifficulty(R.id.easy);
 
         fightBtn = (Button) findViewById(R.id.okButton);
-        recordBtn=(Button)findViewById(R.id.recordButton);
+        recordBtn = (Button) findViewById(R.id.recordButton);
 
         fightBtn.setOnClickListener(new Button.OnClickListener()
         {
@@ -90,14 +90,7 @@ public class MainActivity extends AppCompatActivity
         {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
-        else
-        {
-            System.out.println("Accepted");
-        }
     }
-
-
-
 }
 
 

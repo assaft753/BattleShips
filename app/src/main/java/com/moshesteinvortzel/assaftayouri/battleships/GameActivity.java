@@ -112,11 +112,15 @@ public class GameActivity extends AppCompatActivity implements SensorService.Ise
         computerGridView.setAdapter(new ComputerGridAdapter(battleShip.getComputerBoard(), Resources.getSystem().getDisplayMetrics().heightPixels / 2 / 9, getApplicationContext()));
         playerGridView.setAdapter(new PlayerGridAdapter(battleShip.getPlayerBoard(), Resources.getSystem().getDisplayMetrics().heightPixels / 4 / 9, getApplicationContext()));
         textView.setText(R.string.playerTurn);
-        Intent finishActivity = new Intent(this, FinishActivity.class);
+
+
+        /*Intent finishActivity = new Intent(this, FinishActivity.class);
         finishActivity.putExtra(getString(R.string.keyDifficulty), battleShip.getDifficultyType().ordinal());
         finishActivity.putExtra(getString(R.string.keyState), getString(R.string.Won));
         finishActivity.putExtra("score",score);
-        startActivity(finishActivity);
+        startActivity(finishActivity);*/
+
+
         computerGridView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
@@ -165,8 +169,8 @@ public class GameActivity extends AppCompatActivity implements SensorService.Ise
                                     textView.setText(R.string.playerTurn);
                                     //if (toReOrder == false)
                                     //{
-                                        System.out.println("unloack 1");
-                                        computerGridView.setEnabled(true);
+                                    System.out.println("unloack 1");
+                                    computerGridView.setEnabled(true);
                                     //}
                                 }
                             });
@@ -284,7 +288,7 @@ public class GameActivity extends AppCompatActivity implements SensorService.Ise
     @Override
     public void StartAnimationBySensor()
     {
-        if (toReOrder==false)
+        if (toReOrder == false)
         {
             System.out.println("enter start anim");
             activateReOrder();
@@ -295,7 +299,7 @@ public class GameActivity extends AppCompatActivity implements SensorService.Ise
     @Override
     public void StopAnimationBySensor()
     {
-        if (toReOrder==true)
+        if (toReOrder == true)
         {
             System.out.println("enter stop anim");
             deactivateReOrder();

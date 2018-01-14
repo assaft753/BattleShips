@@ -67,7 +67,7 @@ public class FinishActivity extends AppCompatActivity
         changeDifficulty = (Button) findViewById(R.id.restartBtn);
         enterNameLabel = (TextView) findViewById(R.id.EnterNameText);
         reFight = (Button) findViewById(R.id.againBtn);
-        stateImageView=(ImageView)findViewById(R.id.stateImage);
+        stateImageView = (ImageView) findViewById(R.id.stateImage);
         playerName = (EditText) findViewById(R.id.nameInput);
         scoreText = (TextView) findViewById(R.id.textScore);
         scoreText.setVisibility(View.INVISIBLE);
@@ -89,7 +89,8 @@ public class FinishActivity extends AppCompatActivity
             playerName.setVisibility(View.VISIBLE);
             isWon = true;
         }
-        else {
+        else
+        {
             this.stateImageView.setImageResource(R.drawable.loose);
             StartAnimation();
         }
@@ -140,7 +141,7 @@ public class FinishActivity extends AppCompatActivity
         {
             if (isBind)
             {
-                recordApi.InsertRecord(playerName.getText().toString(), score,difficultyType);
+                recordApi.InsertRecord(playerName.getText().toString(), score, difficultyType);
             }
         }
     }
@@ -150,9 +151,9 @@ public class FinishActivity extends AppCompatActivity
         final ObjectAnimator downWinAnimator;
         final ObjectAnimator upWinAnimator;
 
-        downWinAnimator=ObjectAnimator.ofFloat(stateImageView,"translationY",stateImageView.getTranslationY(),stateImageView.getTranslationY()+100);
+        downWinAnimator = ObjectAnimator.ofFloat(stateImageView, "translationY", stateImageView.getTranslationY(), stateImageView.getTranslationY() + 100);
         downWinAnimator.setDuration(1000);
-        upWinAnimator=ObjectAnimator.ofFloat(stateImageView,"translationY",stateImageView.getTranslationY()+100,stateImageView.getTranslationY());
+        upWinAnimator = ObjectAnimator.ofFloat(stateImageView, "translationY", stateImageView.getTranslationY() + 100, stateImageView.getTranslationY());
         upWinAnimator.setDuration(1000);
 
         upWinAnimator.addListener(new Animator.AnimatorListener()
