@@ -53,7 +53,10 @@ public class RecordsTableFragment extends Fragment
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
             {
+                view.getFocusables(i);
+                view.setSelected(true);
                 onRecordTableClick.OnRecordTableClick(records.get(i).record);
+                System.out.println("enter");
             }
         });
 
@@ -62,19 +65,20 @@ public class RecordsTableFragment extends Fragment
 
     public void SetRecordHighlight(Record record)
     {
-        for(RecordDecorator recordDecorator:records)
+        for (int i = 0; i < records.size(); i++)
         {
 
-           if(recordDecorator.IfRecordEquals(record))
-           {
-               recordDecorator.toFill=true;
-           }
-           else
-           {
-               recordDecorator.toFill=false;
-           }
+            if (records.get(i).IfRecordEquals(record))
+            {
+                recordsList.requestFocusFromTouch();
+                recordsList.smoothScrollToPosition(i);
+                recordsList.setSelection(i);
+                recordsList.performItemClick(recordsList.getAdapter().getView(i, null, null), i, i);
+                //((RecordsListAdapter)recordsList.getAdapter()).notifyDataSetChanged();
+                break;
+            }
+
         }
-        recordsList.invalidate();
     }
 
     public void InitRecords(ArrayList<Record> records)

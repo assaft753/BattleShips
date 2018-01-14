@@ -1,5 +1,8 @@
 package com.moshesteinvortzel.assaftayouri.battleships;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.ServiceConnection;
@@ -10,6 +13,7 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Button;
 import android.view.View;
@@ -28,9 +32,11 @@ public class FinishActivity extends AppCompatActivity
     private EditText playerName;
     private TextView scoreText;
     private TextView enterNameLabel;
+    private ImageView stateImageView;
     private Bundle bundle;
     private String state;
     private DifficultyType difficultyType;
+
     private int score;
     boolean isWon = false;
     private boolean isBind = false;
@@ -61,6 +67,7 @@ public class FinishActivity extends AppCompatActivity
         changeDifficulty = (Button) findViewById(R.id.restartBtn);
         enterNameLabel = (TextView) findViewById(R.id.EnterNameText);
         reFight = (Button) findViewById(R.id.againBtn);
+        stateImageView=(ImageView)findViewById(R.id.stateImage);
         playerName = (EditText) findViewById(R.id.nameInput);
         scoreText = (TextView) findViewById(R.id.textScore);
         scoreText.setVisibility(View.INVISIBLE);
@@ -73,12 +80,18 @@ public class FinishActivity extends AppCompatActivity
         stateTextView.setText(state);
         if (getString(R.string.Won).equals(state))
         {
+            this.stateImageView.setImageResource(R.drawable.win);
+            StartAnimation();
             score = bundle.getInt("score");
             scoreText.setText(String.valueOf(score));
             scoreText.setVisibility(View.VISIBLE);
             enterNameLabel.setVisibility(View.VISIBLE);
             playerName.setVisibility(View.VISIBLE);
             isWon = true;
+        }
+        else {
+            this.stateImageView.setImageResource(R.drawable.loose);
+            StartAnimation();
         }
 
         changeDifficulty.setOnClickListener(new Button.OnClickListener()
@@ -130,5 +143,73 @@ public class FinishActivity extends AppCompatActivity
                 recordApi.InsertRecord(playerName.getText().toString(), score,difficultyType);
             }
         }
+    }
+
+    private void StartAnimation()
+    {
+        final ObjectAnimator downWinAnimator;
+        final ObjectAnimator upWinAnimator;
+
+        downWinAnimator=ObjectAnimator.ofFloat(stateImageView,"translationY",stateImageView.getTranslationY(),stateImageView.getTranslationY()+100);
+        downWinAnimator.setDuration(1000);
+        upWinAnimator=ObjectAnimator.ofFloat(stateImageView,"translationY",stateImageView.getTranslationY()+100,stateImageView.getTranslationY());
+        upWinAnimator.setDuration(1000);
+
+        upWinAnimator.addListener(new Animator.AnimatorListener()
+        {
+            @Override
+            public void onAnimationStart(Animator animator)
+            {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator)
+            {
+                downWinAnimator.start();
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator)
+            {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator)
+            {
+
+            }
+        });
+
+        downWinAnimator.addListener(new Animator.AnimatorListener()
+        {
+            @Override
+            public void onAnimationStart(Animator animator)
+            {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator)
+            {
+                upWinAnimator.start();
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator)
+            {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator)
+            {
+
+            }
+        });
+        downWinAnimator.start();
+
+
     }
 }

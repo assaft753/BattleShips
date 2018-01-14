@@ -11,6 +11,7 @@ import com.moshesteinvortzel.assaftayouri.battleships.Logic.Enum.SubmarineType;
 public class Cube
 {
     private CubeType Status;
+    private boolean isAnimated;
     private boolean Empty;
     private SubmarineType submarineType;
     private ShipType orientation;
@@ -59,5 +60,15 @@ public class Cube
     public ShipType getOrientation()
     {
         return this.orientation;
+    }
+
+    public boolean isAnimated()
+    {
+        return isAnimated;
+    }
+
+    public void setAnimated(boolean animated)
+    {
+        isAnimated = animated;
     }
 }

@@ -33,7 +33,7 @@ public class RecordHandler
         values.put(SqlEntities.COL_LONGITUDE, record.location.longitude);
         values.put(SqlEntities.COL_NAME, record.playerName);
         values.put(SqlEntities.COL_SCORE, record.score);
-        long newRowId = db.insert(difficultyType.toString(), null, values);
+        db.insert(difficultyType.toString(), null, values);
     }
 
     public ArrayList<Record> GetRecords(DifficultyType difficultyType)

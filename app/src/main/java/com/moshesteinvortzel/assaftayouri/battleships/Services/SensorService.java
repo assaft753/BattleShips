@@ -137,9 +137,9 @@ public class SensorService extends Service implements SensorEventListener
 
     private boolean CheckOrientation(float[] initialOrientaion, float[] current)
     {
-        System.out.println((Math.toDegrees(current[0])));
-        System.out.println((Math.toDegrees(current[1])));
-        System.out.println((Math.toDegrees(current[2])));
+        //System.out.println((Math.toDegrees(current[0])));
+        //System.out.println((Math.toDegrees(current[1])));
+        //System.out.println((Math.toDegrees(current[2])));
 
         float x = Math.abs(initialOrientaion[0] - current[0]);
         float y = Math.abs(initialOrientaion[1] - current[1]);

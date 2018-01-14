@@ -36,8 +36,8 @@ public class RecordsActivity extends AppCompatActivity implements OnMapReadyCall
         Bundle bundle = getIntent().getExtras();
         recordHandler = new RecordHandler(getApplicationContext());
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
         records = recordHandler.GetRecords(DifficultyType.values()[bundle.getInt(getString(R.string.keyDifficulty))]);
+        mapFragment.getMapAsync(this);
         recordsTableFragment = (RecordsTableFragment) getFragmentManager().findFragmentById(R.id.records_fragment);
         recordsTableFragment.InitRecords(records);
         recordsTableFragment.onRecordTableClick = this;
@@ -66,6 +66,6 @@ public class RecordsActivity extends AppCompatActivity implements OnMapReadyCall
     public boolean onMarkerClick(Marker marker)
     {
         recordsTableFragment.SetRecordHighlight((Record) marker.getTag());
-        return false;
+        return true;
     }
 }

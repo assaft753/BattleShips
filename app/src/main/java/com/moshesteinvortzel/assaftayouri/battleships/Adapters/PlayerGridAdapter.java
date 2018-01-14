@@ -80,7 +80,7 @@ public class PlayerGridAdapter extends BaseAdapter
             else if (board.getCube(position).getStatus() == CubeType.Hit)
             {
                 cubeView.cube.setBackgroundResource(R.drawable.fire_animation);
-                AnimationDrawable animationDrawable=(AnimationDrawable)cubeView.cube.getBackground();
+                AnimationDrawable animationDrawable = (AnimationDrawable) cubeView.cube.getBackground();
                 animationDrawable.setOneShot(true);
                 animationDrawable.start();
                 //cubeView.cube.setImageResource(R.drawable.hit);
@@ -88,7 +88,7 @@ public class PlayerGridAdapter extends BaseAdapter
             else if (board.getCube(position).getStatus() == CubeType.Miss)
             {
                 cubeView.cube.setBackgroundResource(R.drawable.water_animation);
-                AnimationDrawable animationDrawable=(AnimationDrawable)cubeView.cube.getBackground();
+                AnimationDrawable animationDrawable = (AnimationDrawable) cubeView.cube.getBackground();
                 animationDrawable.setOneShot(true);
                 animationDrawable.start();
                 //cubeView.setBackgroundColor(0x92485BD2);
