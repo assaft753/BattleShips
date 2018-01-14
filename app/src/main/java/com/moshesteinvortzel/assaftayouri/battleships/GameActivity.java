@@ -112,11 +112,11 @@ public class GameActivity extends AppCompatActivity implements SensorService.Ise
         computerGridView.setAdapter(new ComputerGridAdapter(battleShip.getComputerBoard(), Resources.getSystem().getDisplayMetrics().heightPixels / 2 / 9, getApplicationContext()));
         playerGridView.setAdapter(new PlayerGridAdapter(battleShip.getPlayerBoard(), Resources.getSystem().getDisplayMetrics().heightPixels / 4 / 9, getApplicationContext()));
         textView.setText(R.string.playerTurn);
-        /*Intent finishActivity = new Intent(this, FinishActivity.class);
+        Intent finishActivity = new Intent(this, FinishActivity.class);
         finishActivity.putExtra(getString(R.string.keyDifficulty), battleShip.getDifficultyType().ordinal());
         finishActivity.putExtra(getString(R.string.keyState), getString(R.string.Won));
         finishActivity.putExtra("score",score);
-        startActivity(finishActivity);*/
+        startActivity(finishActivity);
         computerGridView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
@@ -231,7 +231,7 @@ public class GameActivity extends AppCompatActivity implements SensorService.Ise
                 {
                     while (toReOrder)
                     {
-                        Thread.sleep(2000);
+                        Thread.sleep(5000);
                         if (toReOrder)
                         {
                             battleShip.reArrangeShips();
