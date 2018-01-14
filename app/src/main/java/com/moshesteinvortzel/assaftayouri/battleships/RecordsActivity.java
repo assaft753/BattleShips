@@ -1,21 +1,16 @@
 package com.moshesteinvortzel.assaftayouri.battleships;
 
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.moshesteinvortzel.assaftayouri.battleships.Adapters.RecordDecorator;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.Enum.DifficultyType;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.SQL.RecordHandler;
-import com.moshesteinvortzel.assaftayouri.battleships.Logic.Secondary.Position;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.Secondary.Record;
 
 import java.util.ArrayList;

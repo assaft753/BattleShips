@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.moshesteinvortzel.assaftayouri.battleships.Adapters.RecordDecorator;
 import com.moshesteinvortzel.assaftayouri.battleships.Adapters.RecordsListAdapter;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.Secondary.Record;
 
@@ -21,13 +20,18 @@ import java.util.ArrayList;
 
 public class RecordsTableFragment extends Fragment
 {
+    public void InitRecords(ArrayList<Record> records)
+    {
+        this.records = records;
+    }
+
     public interface IRecordTableClickable
     {
         public void OnRecordTableClick(Record record);
     }
 
     private ListView recordsList;
-    public ArrayList<RecordDecorator> records;
+    public ArrayList<Record> records;
     public IRecordTableClickable onRecordTableClick;
 
     public RecordsTableFragment()
@@ -55,7 +59,7 @@ public class RecordsTableFragment extends Fragment
             {
                 view.getFocusables(i);
                 view.setSelected(true);
-                onRecordTableClick.OnRecordTableClick(records.get(i).record);
+                onRecordTableClick.OnRecordTableClick(records.get(i));
                 System.out.println("enter");
             }
         });
@@ -68,7 +72,7 @@ public class RecordsTableFragment extends Fragment
         for (int i = 0; i < records.size(); i++)
         {
 
-            if (records.get(i).IfRecordEquals(record))
+            if (records.get(i).equals(record))
             {
                 recordsList.requestFocusFromTouch();
                 recordsList.smoothScrollToPosition(i);
@@ -81,15 +85,6 @@ public class RecordsTableFragment extends Fragment
         }
     }
 
-    public void InitRecords(ArrayList<Record> records)
-    {
-        ArrayList<RecordDecorator> recordsDecorator=new ArrayList<RecordDecorator>();
-        for(Record record:records)
-        {
-            recordsDecorator.add(new RecordDecorator(record));
-        }
-        this.records=recordsDecorator;
-    }
 }
 
 

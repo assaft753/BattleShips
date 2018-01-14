@@ -76,17 +76,17 @@ public class ComputerGridAdapter extends BaseAdapter
 
                 //if(!board.getCube(position).isAnimated())
                 //{
-                    cubeView.cube.setBackgroundResource(R.drawable.fire_animation);
-                    AnimationDrawable animationDrawable = (AnimationDrawable) cubeView.cube.getBackground();
-                    board.getCube(position).setAnimated(true);
-                    animationDrawable.setOneShot(true);
-                    animationDrawable.start();
+                cubeView.cube.setBackgroundResource(R.drawable.fire_animation);
+                AnimationDrawable animationDrawable = (AnimationDrawable) cubeView.cube.getBackground();
+                board.getCube(position).setAnimated(true);
+                animationDrawable.setOneShot(true);
+                animationDrawable.start();
                 //}
                 //else
                 //{
 
-                  //  cubeView.cube.setBackgroundResource(0);
-                  //  cubeView.cube.setImageResource(R.drawable.f20f);
+                //  cubeView.cube.setBackgroundResource(0);
+                //  cubeView.cube.setImageResource(R.drawable.f20f);
                 //}
 
                 //
@@ -94,7 +94,7 @@ public class ComputerGridAdapter extends BaseAdapter
             else if (board.getCube(position).getStatus() == CubeType.Miss)
             {
                 cubeView.cube.setBackgroundResource(R.drawable.water_animation);
-                AnimationDrawable animationDrawable=(AnimationDrawable)cubeView.cube.getBackground();
+                AnimationDrawable animationDrawable = (AnimationDrawable) cubeView.cube.getBackground();
                 animationDrawable.setOneShot(true);
                 animationDrawable.start();
                 //cubeView.setBackgroundColor(0x92485BD2);

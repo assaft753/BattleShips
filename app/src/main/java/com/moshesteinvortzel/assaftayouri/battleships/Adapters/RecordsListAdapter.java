@@ -1,21 +1,14 @@
 package com.moshesteinvortzel.assaftayouri.battleships.Adapters;
 
 import android.content.Context;
-import android.database.DataSetObserver;
-import android.graphics.drawable.Drawable;
-import android.os.TokenWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
-import com.moshesteinvortzel.assaftayouri.battleships.Adapters.RecordDecorator;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.Secondary.Record;
 import com.moshesteinvortzel.assaftayouri.battleships.R;
-
-import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -27,9 +20,9 @@ import java.util.ArrayList;
 public class RecordsListAdapter extends BaseAdapter
 {
     private LayoutInflater mInflater;
-    private ArrayList<RecordDecorator> records;
+    private ArrayList<Record> records;
 
-    public RecordsListAdapter(Context context, ArrayList<RecordDecorator> records)
+    public RecordsListAdapter(Context context, ArrayList<Record> records)
     {
         this.records = records;
         this.mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -77,19 +70,11 @@ public class RecordsListAdapter extends BaseAdapter
         score = (TextView) row.findViewById(R.id.score);
         location = (TextView) row.findViewById(R.id.location);
 
-        if (records.get(i).toFill)
-        {
-            //row.getBackground().setAlpha(255);
-        }
-        else
-        {
-            //row.getBackground().setAlpha(0);
-        }
         rank.setText(i + 1 + ".");
-        playerName.setText(records.get(i).record.playerName);
-        score.setText(String.valueOf(records.get(i).record.score));
-        locationString = "Lat:" +String.valueOf(new DecimalFormat("##.##").format(records.get(i).record.location.latitude))
-                + "\n" + "long:" + String.valueOf(new DecimalFormat("##.##").format(records.get(i).record.location.longitude));
+        playerName.setText(records.get(i).playerName);
+        score.setText(String.valueOf(records.get(i).score));
+        locationString = "Lat:" +String.valueOf(new DecimalFormat("##.##").format(records.get(i).location.latitude))
+                + "\n" + "long:" + String.valueOf(new DecimalFormat("##.##").format(records.get(i).location.longitude));
         location.setText(locationString);
         return row;
     }
