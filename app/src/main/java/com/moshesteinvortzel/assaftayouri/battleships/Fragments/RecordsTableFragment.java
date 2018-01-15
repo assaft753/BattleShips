@@ -75,7 +75,7 @@ public class RecordsTableFragment extends Fragment
                 recordsList.requestFocusFromTouch();
                 recordsList.smoothScrollToPosition(i);
                 recordsList.setSelection(i);
-                recordsList.performItemClick(recordsList.getAdapter().getView(i, null, null), i, i);
+                recordsList.performItemClick(recordsList.getAdapter().getView(i, null, null), i, 0);
                 break;
             }
 
