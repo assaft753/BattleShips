@@ -84,7 +84,6 @@ public class RecordService extends Service implements LocationListener, Runnable
     {
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         recordHandler.InsertRecords(playerDifficultyType, new Record(latLng, playerScore, playerName));
-        System.out.println(location.toString() + " name " + playerName + " score " + playerScore);
         recordHandler.CloseSQl();
     }
 

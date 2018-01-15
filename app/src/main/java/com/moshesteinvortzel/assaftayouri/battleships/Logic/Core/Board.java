@@ -371,30 +371,4 @@ public class Board
         int y = pos % BattleShip.SIZE;
         return this.CubeBoard[x][y].getStatus() != CubeType.None;
     }
-
-    public void print()
-    {
-        for (int i = 0; i < BattleShip.SIZE; i++)
-        {
-            for (int j = 0; j < BattleShip.SIZE; j++)
-            {
-                switch (this.CubeBoard[i][j].getStatus())
-                {
-                    case Hit:
-                        System.out.print("2");
-                        break;
-                    case Miss:
-                        System.out.print("1");
-                        break;
-                    case None:
-                        System.out.print("0");
-                        break;
-                    case Sink:
-                        System.out.print("3");
-                        break;
-                }
-            }
-            System.out.println();
-        }
-    }
 }
