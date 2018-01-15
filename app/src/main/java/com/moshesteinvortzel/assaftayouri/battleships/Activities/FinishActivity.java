@@ -1,25 +1,24 @@
-package com.moshesteinvortzel.assaftayouri.battleships;
+package com.moshesteinvortzel.assaftayouri.battleships.Activities;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.ServiceConnection;
-import android.location.LocationManager;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Button;
 import android.view.View;
 
+import com.moshesteinvortzel.assaftayouri.battleships.Animations.WinLooseAnimationHandler;
+import com.moshesteinvortzel.assaftayouri.battleships.Logic.Core.BattleShip;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.Enum.DifficultyType;
-import com.moshesteinvortzel.assaftayouri.battleships.Logic.SQL.RecordHandler;
+import com.moshesteinvortzel.assaftayouri.battleships.R;
 import com.moshesteinvortzel.assaftayouri.battleships.Services.RecordService;
 
 public class FinishActivity extends AppCompatActivity
@@ -36,6 +35,7 @@ public class FinishActivity extends AppCompatActivity
     private Bundle bundle;
     private String state;
     private DifficultyType difficultyType;
+    private WinLooseAnimationHandler winLooseAnimationHandler;
 
     private int score;
     boolean isWon = false;
@@ -78,11 +78,23 @@ public class FinishActivity extends AppCompatActivity
         int ordinal = bundle.getInt(getString(R.string.keyDifficulty));
         difficultyType = DifficultyType.values()[ordinal];
         stateTextView.setText(state);
+        winLooseAnimationHandler = new WinLooseAnimationHandler(stateImageView);
         if (getString(R.string.Won).equals(state))
         {
             this.stateImageView.setImageResource(R.drawable.win);
-            StartAnimation();
             score = bundle.getInt("score");
+            switch (difficultyType)
+            {
+                case Easy:
+                    score -= (BattleShip.AMOUNT * BattleShip.EASY);
+                    break;
+                case Medium:
+                    score -= (BattleShip.AMOUNT * BattleShip.MEDIUM);
+                    break;
+                case Hard:
+                    score -= (BattleShip.AMOUNT * BattleShip.HARD);
+                    break;
+            }
             scoreText.setText(String.valueOf(score));
             scoreText.setVisibility(View.VISIBLE);
             enterNameLabel.setVisibility(View.VISIBLE);
@@ -92,8 +104,8 @@ public class FinishActivity extends AppCompatActivity
         else
         {
             this.stateImageView.setImageResource(R.drawable.loose);
-            StartAnimation();
         }
+        winLooseAnimationHandler.StartViewAnimation();
 
         changeDifficulty.setOnClickListener(new Button.OnClickListener()
         {
@@ -144,73 +156,5 @@ public class FinishActivity extends AppCompatActivity
                 recordApi.InsertRecord(playerName.getText().toString(), score, difficultyType);
             }
         }
-    }
-
-    private void StartAnimation()
-    {
-        final ObjectAnimator downWinAnimator;
-        final ObjectAnimator upWinAnimator;
-
-        downWinAnimator = ObjectAnimator.ofFloat(stateImageView, "translationY", stateImageView.getTranslationY(), stateImageView.getTranslationY() + 100);
-        downWinAnimator.setDuration(1000);
-        upWinAnimator = ObjectAnimator.ofFloat(stateImageView, "translationY", stateImageView.getTranslationY() + 100, stateImageView.getTranslationY());
-        upWinAnimator.setDuration(1000);
-
-        upWinAnimator.addListener(new Animator.AnimatorListener()
-        {
-            @Override
-            public void onAnimationStart(Animator animator)
-            {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animator)
-            {
-                downWinAnimator.start();
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animator)
-            {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animator)
-            {
-
-            }
-        });
-
-        downWinAnimator.addListener(new Animator.AnimatorListener()
-        {
-            @Override
-            public void onAnimationStart(Animator animator)
-            {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animator)
-            {
-                upWinAnimator.start();
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animator)
-            {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animator)
-            {
-
-            }
-        });
-        downWinAnimator.start();
-
-
     }
 }

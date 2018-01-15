@@ -1,4 +1,4 @@
-package com.moshesteinvortzel.assaftayouri.battleships;
+package com.moshesteinvortzel.assaftayouri.battleships.Views;
 
 import android.content.Context;
 import android.graphics.Color;

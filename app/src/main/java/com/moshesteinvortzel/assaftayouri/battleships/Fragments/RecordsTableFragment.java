@@ -1,4 +1,4 @@
-package com.moshesteinvortzel.assaftayouri.battleships;
+package com.moshesteinvortzel.assaftayouri.battleships.Fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.widget.ListView;
 
 import com.moshesteinvortzel.assaftayouri.battleships.Adapters.RecordsListAdapter;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.Secondary.Record;
+import com.moshesteinvortzel.assaftayouri.battleships.R;
 
 import java.util.ArrayList;
 

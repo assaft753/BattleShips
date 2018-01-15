@@ -6,12 +6,16 @@ import com.moshesteinvortzel.assaftayouri.battleships.R;
  * Created by assaftayouri on 10/12/2017.
  */
 
-public enum SubmarineType {
+public enum SubmarineType
+{
     End, Start, Middle;
 
-    public int getIdOfImage(ShipType shipType) {
-        if (shipType == ShipType.Horizontal) {
-            switch (this) {
+    public int getIdOfImage(ShipType shipType)
+    {
+        if (shipType == ShipType.Horizontal)
+        {
+            switch (this)
+            {
                 case Start:
                     return R.drawable.starthorizontal;
                 case Middle:
@@ -20,8 +24,11 @@ public enum SubmarineType {
                     return R.drawable.endhorizontal;
             }
 
-        } else {
-            switch (this) {
+        }
+        else
+        {
+            switch (this)
+            {
                 case Start:
                     return R.drawable.startvertical;
                 case Middle:

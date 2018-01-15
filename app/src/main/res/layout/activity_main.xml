@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.moshesteinvortzel.assaftayouri.battleships.MainActivity">
+    tools:context="com.moshesteinvortzel.assaftayouri.battleships.Activities.MainActivity">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -80,8 +80,7 @@
         android:background="@color/Danger"
         android:text="@string/Play"
         android:textColor="#FFFF"
-        android:textSize="25dp"
-        />
+        android:textSize="25dp" />
 
     <Button
         android:id="@+id/recordButton"
@@ -93,7 +92,6 @@
         android:background="@color/Danger"
         android:text="@string/showrecs"
         android:textColor="#FFFF"
-        android:textSize="25dp"
-        />
+        android:textSize="25dp" />
 
 </LinearLayout>

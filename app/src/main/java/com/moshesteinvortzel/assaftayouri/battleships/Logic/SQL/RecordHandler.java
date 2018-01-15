@@ -9,6 +9,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.Enum.DifficultyType;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.Secondary.Record;
 
+import java.security.PrivateKey;
 import java.util.ArrayList;
 
 /**
@@ -19,6 +20,7 @@ public class RecordHandler
 {
     private SQL_Handler sql_handler;
     private SQLiteDatabase db;
+    private final String LIMIT = "10";
 
     public RecordHandler(Context context)
     {
@@ -52,7 +54,7 @@ public class RecordHandler
         };
 
         String sortOrder = SqlEntities.COL_SCORE + " ASC";
-        Cursor cursor = db.query(difficultyType.toString(), projection, null, null, null, null, sortOrder, "10");
+        Cursor cursor = db.query(difficultyType.toString(), projection, null, null, null, null, sortOrder, LIMIT);
         while (cursor.moveToNext())
         {
             record = new Record();

@@ -1,4 +1,4 @@
-package com.moshesteinvortzel.assaftayouri.battleships;
+package com.moshesteinvortzel.assaftayouri.battleships.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,9 +9,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.moshesteinvortzel.assaftayouri.battleships.Fragments.RecordsTableFragment;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.Enum.DifficultyType;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.SQL.RecordHandler;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.Secondary.Record;
+import com.moshesteinvortzel.assaftayouri.battleships.R;
 
 import java.util.ArrayList;
 

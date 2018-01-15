@@ -1,33 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/w1" android:duration="100"/>
-    <item android:drawable="@drawable/w2" android:duration="100"/>
-    <item android:drawable="@drawable/w3" android:duration="100"/>
-    <item android:drawable="@drawable/w4" android:duration="100"/>
-    <item android:drawable="@drawable/w5" android:duration="100"/>
-    <item android:drawable="@drawable/w6" android:duration="100"/>
-    <item android:drawable="@drawable/w7" android:duration="100"/>
-    <item android:drawable="@drawable/w8" android:duration="100"/>
-    <item android:drawable="@drawable/w9" android:duration="100"/>
-    <item android:drawable="@drawable/w10" android:duration="100"/>
-    <item android:drawable="@drawable/w11" android:duration="100"/>
-    <item android:drawable="@drawable/w12" android:duration="100"/>
-    <item android:drawable="@drawable/w13" android:duration="100"/>
-    <item android:drawable="@drawable/w14" android:duration="100"/>
-    <item android:drawable="@drawable/w15" android:duration="100"/>
-    <item android:drawable="@drawable/w16" android:duration="100"/>
-    <item android:drawable="@drawable/w17" android:duration="100"/>
-    <item android:drawable="@drawable/w18" android:duration="100"/>
-    <item android:drawable="@drawable/w19" android:duration="100"/>
-    <item android:drawable="@drawable/w20" android:duration="100"/>
-    <item android:drawable="@drawable/w21" android:duration="100"/>
-    <item android:drawable="@drawable/w22" android:duration="100"/>
-    <item android:drawable="@drawable/w23" android:duration="100"/>
-    <item android:drawable="@drawable/w24" android:duration="100"/>
-    <item android:drawable="@drawable/w25" android:duration="100"/>
-    <item android:drawable="@drawable/w26" android:duration="100"/>
-    <item android:drawable="@drawable/w27" android:duration="100"/>
-    <item android:drawable="@drawable/w28" android:duration="100"/>
-    <item android:drawable="@drawable/w29" android:duration="100"/>
-    <item android:drawable="@drawable/w30" android:duration="100"/>
+    <item
+        android:drawable="@drawable/w1"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/w2"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/w3"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/w4"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/w5"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/w6"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/w7"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/w8"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/w9"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/w10"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/w11"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/w12"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/w13"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/w14"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/w15"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/w16"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/w17"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/w18"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/w19"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/w20"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/w21"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/w22"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/w23"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/w24"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/w25"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/w26"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/w27"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/w28"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/w29"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/w30"
+        android:duration="100" />
 </animation-list>

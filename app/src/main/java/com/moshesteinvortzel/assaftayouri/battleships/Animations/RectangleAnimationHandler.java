@@ -1,4 +1,4 @@
-package com.moshesteinvortzel.assaftayouri.battleships;
+package com.moshesteinvortzel.assaftayouri.battleships.Animations;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/sea"
-    tools:context="com.moshesteinvortzel.assaftayouri.battleships.GameActivity">
+    tools:context="com.moshesteinvortzel.assaftayouri.battleships.Activities.GameActivity">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -68,7 +68,6 @@
             android:numColumns="9"
             android:paddingHorizontal="50dp"
             android:stackFromBottom="true"
-            android:verticalSpacing="0.5dp">
-        </GridView>
+            android:verticalSpacing="0.5dp"></GridView>
     </RelativeLayout>
 </RelativeLayout>

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/endsubmarine"
     android:orientation="vertical"
-    tools:context="com.moshesteinvortzel.assaftayouri.battleships.FinishActivity">
+    tools:context="com.moshesteinvortzel.assaftayouri.battleships.Activities.FinishActivity">
 
 
     <TextView
@@ -17,13 +17,13 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:fontFamily="serif"
+        android:text="@string/EnterName"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.051"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stateText"
-        android:text="@string/EnterName" />
+        app:layout_constraintTop_toBottomOf="@+id/stateText" />
 
     <EditText
         android:id="@+id/nameInput"
@@ -32,9 +32,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"
+        android:inputType="text"
         android:textColor="@color/colorAccent"
         android:textSize="24sp"
-        android:inputType="text"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.052"
@@ -82,7 +82,6 @@
         android:layout_marginBottom="468dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="YOU WON"
         android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -120,7 +119,6 @@
         app:layout_constraintBottom_toTopOf="@+id/againBtn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameInput"
-        app:layout_constraintVertical_bias="0.308"
-        />
+        app:layout_constraintVertical_bias="0.308" />
 
 </android.support.constraint.ConstraintLayout>

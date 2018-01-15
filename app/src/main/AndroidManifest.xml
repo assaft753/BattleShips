@@ -14,16 +14,17 @@
         android:supportsRtl="true"
         android:testOnly="false"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GameActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".FinishActivity">
+        <activity
+            android:name=".Activities.GameActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Activities.FinishActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,7 +48,7 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".RecordsActivity" />
+        <activity android:name=".Activities.RecordsActivity" />
 
         <service
             android:name=".Services.SensorService"

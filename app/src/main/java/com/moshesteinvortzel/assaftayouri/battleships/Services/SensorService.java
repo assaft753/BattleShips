@@ -134,7 +134,6 @@ public class SensorService extends Service implements SensorEventListener
         float xM = Math.abs(initialMagnetic[0] - currentMagnetic[0]);
         float yM = Math.abs(initialMagnetic[1] - currentMagnetic[1]);
         float zM = Math.abs(initialMagnetic[2] - currentMagnetic[2]);
-        //System.out.println("x=" + x + " y=" + y + " z=" + z + " threshold=" + threshold);
 
         if (xG > THRESHOLDG || yG > THRESHOLDG || xM > THRESHOLDM || yM > THRESHOLDM || zM > THRESHOLDM)
         {

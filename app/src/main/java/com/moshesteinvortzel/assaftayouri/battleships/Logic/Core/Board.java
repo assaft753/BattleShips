@@ -3,6 +3,7 @@ package com.moshesteinvortzel.assaftayouri.battleships.Logic.Core;
 import android.sax.EndElementListener;
 import android.util.Log;
 import android.util.Xml;
+
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.Enum.CubeType;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.Enum.DifficultyType;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.Enum.ShipType;
@@ -10,6 +11,7 @@ import com.moshesteinvortzel.assaftayouri.battleships.Logic.Enum.SubmarineType;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.Secondary.HorizontalPosition;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.Secondary.Position;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.Secondary.VerticalPosition;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -57,7 +59,8 @@ public class Board
                 {
                     rndPOS = rnd.nextInt(positions.size());
                     this.Ships.add(AllocateShipPosition(positions.get(rndPOS), ShipType.Vertical));
-                } else
+                }
+                else
                 {
                     valid = false;
                     rndHOV = 3;
@@ -65,14 +68,16 @@ public class Board
                     rndPOS = rnd.nextInt(positions.size());
                     this.Ships.add(AllocateShipPosition(positions.get(rndPOS), ShipType.Horizontal));
                 }
-            } else
+            }
+            else
             {
                 positions = CheckHorizontalPositions();
                 if (positions != null)
                 {
                     rndPOS = rnd.nextInt(positions.size());
                     this.Ships.add(AllocateShipPosition(positions.get(rndPOS), ShipType.Horizontal));
-                } else
+                }
+                else
                 {
                     valid = false;
                     rndHOV = 2;
@@ -109,7 +114,8 @@ public class Board
                             VertPos.add(new VerticalPosition(i, k, j));
                             exit = true;
                         }
-                    } else
+                    }
+                    else
                     {
                         exit = true;
                     }
@@ -145,7 +151,8 @@ public class Board
                             HorPos.add(new HorizontalPosition(j, k, i));
                             exit = true;
                         }
-                    } else
+                    }
+                    else
                     {
                         exit = true;
 
@@ -176,16 +183,19 @@ public class Board
                 if (i == verticalPosition.getStart())
                 {
                     cube.setSubmarineType(SubmarineType.Start);
-                } else if (i == verticalPosition.getEnd())
+                }
+                else if (i == verticalPosition.getEnd())
                 {
                     cube.setSubmarineType(SubmarineType.End);
-                } else
+                }
+                else
                 {
                     cube.setSubmarineType(SubmarineType.Middle);
                 }
                 ship.getCubes().add(cube);
             }
-        } else
+        }
+        else
         {
             HorizontalPosition horizontalPosition = (HorizontalPosition) position;
             for (int i = horizontalPosition.getStart(); i <= horizontalPosition.getEnd(); i++)
@@ -196,10 +206,12 @@ public class Board
                 if (i == horizontalPosition.getStart())
                 {
                     cube.setSubmarineType(SubmarineType.Start);
-                } else if (i == horizontalPosition.getEnd())
+                }
+                else if (i == horizontalPosition.getEnd())
                 {
                     cube.setSubmarineType(SubmarineType.End);
-                } else
+                }
+                else
                 {
                     cube.setSubmarineType(SubmarineType.Middle);
                 }
@@ -244,7 +256,8 @@ public class Board
                     {
                         rndPOS = rnd.nextInt(positions.size());
                         reAllocateShipPosition(positions.get(rndPOS), ShipType.Vertical, this.Ships.get(i));
-                    } else
+                    }
+                    else
                     {
                         valid = false;
                         rndHOV = 3;
@@ -252,14 +265,16 @@ public class Board
                         rndPOS = rnd.nextInt(positions.size());
                         reAllocateShipPosition(positions.get(rndPOS), ShipType.Horizontal, this.Ships.get(i));
                     }
-                } else
+                }
+                else
                 {
                     positions = CheckHorizontalPositions();
                     if (positions != null)
                     {
                         rndPOS = rnd.nextInt(positions.size());
                         reAllocateShipPosition(positions.get(rndPOS), ShipType.Horizontal, this.Ships.get(i));
-                    } else
+                    }
+                    else
                     {
                         valid = false;
                         rndHOV = 2;
@@ -287,7 +302,8 @@ public class Board
                 this.CubeBoard[i][verticalPosition.getColNum()] = ship.getCubes().get(j);
                 ship.getCubes().get(j).setOrientation(ShipType.Vertical);
             }
-        } else
+        }
+        else
         {
             HorizontalPosition horizontalPosition = (HorizontalPosition) position;
             for (int i = horizontalPosition.getStart(), j = 0; i <= horizontalPosition.getEnd(); j++, i++)
@@ -319,7 +335,8 @@ public class Board
                 cube.setStatus(CubeType.Hit);
                 UpdateShips();
                 return CubeType.Hit;
-            } else
+            }
+            else
             {
                 cube.setStatus(CubeType.Miss);
                 return CubeType.Miss;

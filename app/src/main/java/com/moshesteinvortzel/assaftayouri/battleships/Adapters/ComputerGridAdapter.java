@@ -3,13 +3,11 @@ package com.moshesteinvortzel.assaftayouri.battleships.Adapters;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
-import android.text.method.HideReturnsTransformationMethod;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.moshesteinvortzel.assaftayouri.battleships.CubeView;
+import com.moshesteinvortzel.assaftayouri.battleships.Views.CubeView;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.Core.BattleShip;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.Core.Board;
 import com.moshesteinvortzel.assaftayouri.battleships.Logic.Enum.CubeType;
@@ -74,22 +72,11 @@ public class ComputerGridAdapter extends BaseAdapter
             if (board.getCube(position).getStatus() == CubeType.Hit)
             {
 
-                //if(!board.getCube(position).isAnimated())
-                //{
                 cubeView.cube.setBackgroundResource(R.drawable.fire_animation);
                 AnimationDrawable animationDrawable = (AnimationDrawable) cubeView.cube.getBackground();
                 board.getCube(position).setAnimated(true);
                 animationDrawable.setOneShot(true);
                 animationDrawable.start();
-                //}
-                //else
-                //{
-
-                //  cubeView.cube.setBackgroundResource(0);
-                //  cubeView.cube.setImageResource(R.drawable.f20f);
-                //}
-
-                //
             }
             else if (board.getCube(position).getStatus() == CubeType.Miss)
             {
@@ -97,7 +84,6 @@ public class ComputerGridAdapter extends BaseAdapter
                 AnimationDrawable animationDrawable = (AnimationDrawable) cubeView.cube.getBackground();
                 animationDrawable.setOneShot(true);
                 animationDrawable.start();
-                //cubeView.setBackgroundColor(0x92485BD2);
             }
             else if (board.getCube(position).getStatus() == CubeType.Sink)
             {

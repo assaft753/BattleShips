@@ -73,7 +73,7 @@ public class RecordsListAdapter extends BaseAdapter
         rank.setText(i + 1 + ".");
         playerName.setText(records.get(i).getPlayerName());
         score.setText(String.valueOf(records.get(i).getScore()));
-        locationString = "Lat:" +String.valueOf(new DecimalFormat("##.##").format(records.get(i).getLocation().latitude))
+        locationString = "Lat:" + String.valueOf(new DecimalFormat("##.##").format(records.get(i).getLocation().latitude))
                 + "\n" + "long:" + String.valueOf(new DecimalFormat("##.##").format(records.get(i).getLocation().longitude));
         location.setText(locationString);
         return row;
