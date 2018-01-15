@@ -94,11 +94,7 @@ public class GameActivity extends AppCompatActivity implements SensorService.Ise
                     boolean win = battleShip.playerShoot(position);
                     if (win)
                     {
-                        Intent finishActivity = new Intent(view.getContext(), FinishActivity.class);
-                        finishActivity.putExtra(getString(R.string.keyDifficulty), battleShip.getDifficultyType().ordinal());
-                        finishActivity.putExtra(getString(R.string.keyState), getString(R.string.Won));
-                        finishActivity.putExtra("score", score);
-                        startActivity(finishActivity);
+                        ActivatePlayerWinIntent();
                     }
 
                     battleShip.playerShoot(position);
@@ -115,10 +111,7 @@ public class GameActivity extends AppCompatActivity implements SensorService.Ise
                             boolean win = battleShip.computerShoot();
                             if (win)
                             {
-                                Intent finishActivity = new Intent(getApplicationContext(), FinishActivity.class);
-                                finishActivity.putExtra(getString(R.string.keyDifficulty), battleShip.getDifficultyType().ordinal());
-                                finishActivity.putExtra(getString(R.string.keyState), getString(R.string.Loose));
-                                startActivity(finishActivity);
+                                ActivatePlayerLooseIntent();
                             }
                             runOnUiThread(new Runnable()
                             {
@@ -146,45 +139,57 @@ public class GameActivity extends AppCompatActivity implements SensorService.Ise
 
     private void activateReOrder()
     {
-        toReOrder = true;
-        animatorHandler.startAnimating();
-        new Thread(new Runnable()
+        if (! toReOrder)
         {
-            @Override
-            public void run()
+            toReOrder = true;
+            if (battleShip.HitPlayerBoard())
             {
-                try
-                {
-                    while (toReOrder)
-                    {
-                        Thread.sleep(5000);
-                        if (toReOrder)
-                        {
-                            battleShip.reArrangeShips();
-                            runOnUiThread(new Runnable()
-                            {
-                                @Override
-                                public void run()
-                                {
-                                    ((ComputerGridAdapter) computerGridView.getAdapter()).notifyDataSetChanged();
-
-                                }
-                            });
-                        }
-                    }
-                } catch (InterruptedException e)
-                {
-                    e.printStackTrace();
-                }
-
+                ActivatePlayerLooseIntent();
             }
-        }).start();
+            ((PlayerGridAdapter) playerGridView.getAdapter()).notifyDataSetChanged();
+            animatorHandler.startAnimating();
+
+            new Thread(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    try
+                    {
+                        while (toReOrder)
+                        {
+                            Thread.sleep(5000);
+                            if (toReOrder)
+                            {
+                                battleShip.reArrangeShips();
+                                runOnUiThread(new Runnable()
+                                {
+                                    @Override
+                                    public void run()
+                                    {
+                                        ((ComputerGridAdapter) computerGridView.getAdapter()).notifyDataSetChanged();
+
+                                    }
+                                });
+                            }
+                        }
+                    } catch (InterruptedException e)
+                    {
+                        e.printStackTrace();
+                    }
+
+                }
+            }).start();
+        }
     }
 
     private void deactivateReOrder()
     {
-        toReOrder = false;
-        animatorHandler.stopAnimating();
+        if (toReOrder)
+        {
+            toReOrder = false;
+            animatorHandler.stopAnimating();
+        }
     }
 
 
@@ -221,6 +226,24 @@ public class GameActivity extends AppCompatActivity implements SensorService.Ise
         {
             deactivateReOrder();
         }
+    }
+
+    public void ActivatePlayerWinIntent()
+    {
+        Intent finishActivity = new Intent(getApplicationContext(), FinishActivity.class);
+        finishActivity.putExtra(getString(R.string.keyDifficulty), battleShip.getDifficultyType().ordinal());
+        finishActivity.putExtra(getString(R.string.keyState), getString(R.string.Won));
+        finishActivity.putExtra("score", score);
+        startActivity(finishActivity);
+
+    }
+
+    public void ActivatePlayerLooseIntent()
+    {
+        Intent finishActivity = new Intent(getApplicationContext(), FinishActivity.class);
+        finishActivity.putExtra(getString(R.string.keyDifficulty), battleShip.getDifficultyType().ordinal());
+        finishActivity.putExtra(getString(R.string.keyState), getString(R.string.Loose));
+        startActivity(finishActivity);
     }
 }
 

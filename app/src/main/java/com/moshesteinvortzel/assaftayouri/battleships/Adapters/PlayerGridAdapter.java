@@ -93,6 +93,7 @@ public class PlayerGridAdapter extends BaseAdapter
             }
             else if (board.getCube(position).getStatus() == CubeType.Sink)
             {
+                cubeView.cube.setBackgroundResource(0);
                 cubeView.cube.setImageResource(R.drawable.sink);
             }
 

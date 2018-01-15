@@ -46,6 +46,11 @@ public class BattleShip
         Turn = PlayerType.Player;
     }
 
+    public boolean HitPlayerBoard()
+    {
+        return PlayerBoard.HitPlayerBoard();
+    }
+
     public DifficultyType getDifficultyType()
     {
         return this.difficultyType;

@@ -371,4 +371,20 @@ public class Board
         int y = pos % BattleShip.SIZE;
         return this.CubeBoard[x][y].getStatus() != CubeType.None;
     }
+
+    public boolean HitPlayerBoard()
+    {
+        for (int i = 0; i < BattleShip.SIZE; i++)
+        {
+            for (int j = 0; j < BattleShip.SIZE; j++)
+            {
+                if (CubeBoard[i][j].getStatus() == CubeType.None && ! CubeBoard[i][j].getEmpty())
+                {
+                    Shoot(i, j);
+                    return CheckIfWin();
+                }
+            }
+        }
+        return false;
+    }
 }
