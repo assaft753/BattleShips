@@ -15,21 +15,23 @@ import java.security.PublicKey;
 
 public class SensorService extends Service implements SensorEventListener
 {
-    private float threshold;
-    private float[] initialOrientaion;
+    private static final float THRESHOLDG = 3;
+    private static final float THRESHOLDM = 15;
+    private float[] initialGravity;
+    private float[] initialMagnetic;
     float[] mGravity = null;
     float[] mGeomagnetic = null;
     private boolean isFirstTime;
     private SensorManager mSensorManager;
     private Sensor accelerometer;
-    private Sensor magnetometer;
+    private Sensor magnometer;
     private IsensorChangable isensorChangable;
 
     public SensorService()
     {
-        isFirstTime = false;
-        threshold = (float) 1.5;
-        initialOrientaion = new float[3];
+        isFirstTime = true;
+        initialGravity = new float[3];
+        initialMagnetic = new float[3];
     }
 
     public interface IsensorChangable
@@ -44,10 +46,10 @@ public class SensorService extends Service implements SensorEventListener
     public IBinder onBind(Intent intent)
     {
         mSensorManager = (SensorManager) getSystemService(getApplicationContext().SENSOR_SERVICE);
-        if (mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null && mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null)
+        if (mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null && mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null)
         {
-            magnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
             accelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+            magnometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         }
         else
         {
@@ -77,39 +79,29 @@ public class SensorService extends Service implements SensorEventListener
         }
         if (mGravity != null && mGeomagnetic != null)
         {
-            float R[] = new float[9];
-            float I[] = new float[9];
-            boolean success = SensorManager.getRotationMatrix(R, I, mGravity, mGeomagnetic);
-            if (success)
+            if (isFirstTime)
             {
-                float orientation[] = new float[3];
-                SensorManager.getOrientation(R, orientation);
-                if (isFirstTime == false)
+                isFirstTime = false;
+                initialGravity[0] = mGravity[0];
+                initialGravity[1] = mGravity[1];
+                initialGravity[2] = mGravity[2];
+                initialMagnetic[0] = mGeomagnetic[0];
+                initialMagnetic[1] = mGeomagnetic[1];
+                initialMagnetic[2] = mGeomagnetic[2];
+            }
+            else
+            {
+                if (CheckOrientation(initialGravity, mGravity, initialMagnetic, mGeomagnetic))
                 {
-                    isFirstTime = true;
-                    initialOrientaion[0] = orientation[0];
-                    initialOrientaion[1] = orientation[1];
-                    initialOrientaion[2] = orientation[2];
-                    //threshold=(initialOrientaion[0]+initialOrientaion[1]+initialOrientaion[2])/3;
-                    System.out.println(initialOrientaion[0] + "!!!!!!!!!!!!!!!!!!!");
-                    System.out.println(initialOrientaion[1] + "!!!!!!!!!!!!!!!!!!!!!");
-                    System.out.println(initialOrientaion[2] + "!!!!!!!!!!!!!!!!!!!!!!");
+
+                    isensorChangable.StartAnimationBySensor();
                 }
                 else
                 {
-                    if (CheckOrientation(initialOrientaion, orientation))
-                    {
-
-                        isensorChangable.StartAnimationBySensor();
-                    }
-                    else
-                    {
-                        isensorChangable.StopAnimationBySensor();
-                    }
+                    isensorChangable.StopAnimationBySensor();
                 }
             }
         }
-
     }
 
     @Override
@@ -117,7 +109,6 @@ public class SensorService extends Service implements SensorEventListener
     {
 
     }
-
 
     public class SensorApi extends Binder
     {
@@ -131,27 +122,24 @@ public class SensorService extends Service implements SensorEventListener
     private void Init(IsensorChangable isensorChangable)
     {
         this.isensorChangable = isensorChangable;
-        mSensorManager.registerListener(this, magnetometer, SensorManager.SENSOR_DELAY_NORMAL);
         mSensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        mSensorManager.registerListener(this, magnometer, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
-    private boolean CheckOrientation(float[] initialOrientaion, float[] current)
+    private boolean CheckOrientation(float[] initialGravity, float[] currentGravity, float[] initialMagnetic, float[] currentMagnetic)
     {
-        //System.out.println((Math.toDegrees(current[0])));
-        //System.out.println((Math.toDegrees(current[1])));
-        //System.out.println((Math.toDegrees(current[2])));
+        float xG = Math.abs(initialGravity[0] - currentGravity[0]);
+        float yG = Math.abs(initialGravity[1] - currentGravity[1]);
+        float zG = Math.abs(initialGravity[2] - currentGravity[2]);
+        float xM = Math.abs(initialMagnetic[0] - currentMagnetic[0]);
+        float yM = Math.abs(initialMagnetic[1] - currentMagnetic[1]);
+        float zM = Math.abs(initialMagnetic[2] - currentMagnetic[2]);
+        //System.out.println("x=" + x + " y=" + y + " z=" + z + " threshold=" + threshold);
 
-        float x = Math.abs(initialOrientaion[0] - current[0]);
-        float y = Math.abs(initialOrientaion[1] - current[1]);
-        float z = Math.abs(initialOrientaion[2] - current[2]);
-        //System.out.println("x="+x+" y="+y+" z="+z+" threshold="+threshold);
-
-        if (x > threshold || y > threshold || z > threshold)
+        if (xG > THRESHOLDG || yG > THRESHOLDG || xM > THRESHOLDM || yM > THRESHOLDM || zM > THRESHOLDM)
         {
             return true;
         }
         return false;
     }
-
-
 }
