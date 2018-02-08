@@ -139,57 +139,51 @@ public class GameActivity extends AppCompatActivity implements SensorService.Ise
 
     private void activateReOrder()
     {
-        if (! toReOrder)
+        toReOrder = true;
+        if (battleShip.HitPlayerBoard())
         {
-            toReOrder = true;
-            if (battleShip.HitPlayerBoard())
-            {
-                ActivatePlayerLooseIntent();
-            }
-            ((PlayerGridAdapter) playerGridView.getAdapter()).notifyDataSetChanged();
-            animatorHandler.startAnimating();
-
-            new Thread(new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    try
-                    {
-                        while (toReOrder)
-                        {
-                            Thread.sleep(5000);
-                            if (toReOrder)
-                            {
-                                battleShip.reArrangeShips();
-                                runOnUiThread(new Runnable()
-                                {
-                                    @Override
-                                    public void run()
-                                    {
-                                        ((ComputerGridAdapter) computerGridView.getAdapter()).notifyDataSetChanged();
-
-                                    }
-                                });
-                            }
-                        }
-                    } catch (InterruptedException e)
-                    {
-                        e.printStackTrace();
-                    }
-
-                }
-            }).start();
+            ActivatePlayerLooseIntent();
         }
+        ((PlayerGridAdapter) playerGridView.getAdapter()).notifyDataSetChanged();
+        animatorHandler.startAnimating();
+
+        new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                try
+                {
+                    while (toReOrder)
+                    {
+                        Thread.sleep(5000);
+                        if (toReOrder)
+                        {
+                            battleShip.reArrangeShips();
+                            runOnUiThread(new Runnable()
+                            {
+                                @Override
+                                public void run()
+                                {
+                                    ((ComputerGridAdapter) computerGridView.getAdapter()).notifyDataSetChanged();
+
+                                }
+                            });
+                        }
+                    }
+                } catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+
+            }
+        }).start();
     }
 
     private void deactivateReOrder()
     {
-        if (toReOrder)
-        {
-            toReOrder = false;
-            animatorHandler.stopAnimating();
-        }
+        toReOrder = false;
+        animatorHandler.stopAnimating();
     }
 
 
